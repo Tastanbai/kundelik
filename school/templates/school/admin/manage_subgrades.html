@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Управление Подклассами</title>
+    <style>
+        /* Основной стиль для заголовка */
+        h1, h2 {
+            font-family: Arial, sans-serif;
+            color: #333;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        /* Стили для списка подклассов */
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 20px auto;
+            max-width: 600px;
+            font-size: 1.2rem;
+        }
+
+        ul li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 15px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            transition: background-color 0.3s ease;
+        }
+
+        ul li:hover {
+            background-color: #f1f1f1;
+        }
+
+        ul li a {
+            text-decoration: none;
+            color: #007BFF;
+            transition: color 0.3s ease;
+        }
+
+        ul li a:hover {
+            color: #0056b3;
+        }
+
+        /* Стили для формы */
+        form {
+            margin: 20px auto;
+            max-width: 400px;
+            font-family: Arial, sans-serif;
+            font-size: 1rem;
+            background-color: #f9f9f9;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        form label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        form select, form button {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            font-size: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        form button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        form button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Ссылка назад */
+        p a {
+            display: block;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            color: #007BFF;
+            text-decoration: none;
+            padding: 12px 20px;
+            border: 2px solid #007BFF; /* Синий бордер */
+            border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            width: 150px;
+            margin: 20px auto;
+        }
+
+        p a:hover {
+            background-color: #007BFF;
+            color: #fff; /* Белый цвет текста при наведении */
+        }
+    </style>
+</head>
+<body>
+    <h1>Управление Подклассами</h1>
+    <h2>Добавить Подкласс</h2>
+    <form method="post">
+        {% csrf_token %}
+        <label for="grade_id">Класс:</label>
+        <select name="grade_id" id="grade_id" required>
+            {% for grade in grades %}
+                <option value="{{ grade.id }}">{{ grade.number }} класс</option>
+            {% endfor %}
+        </select>
+        <label for="letter">Буква подкласса:</label>
+        <select name="letter" id="letter" required>
+            {% for letter in 'АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ' %}
+                <option value="{{ letter }}">{{ letter }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Добавить</button>
+    </form>
+    <p><a href="{% url 'custom_admin_dashboard' %}">Назад</a></p>
+
+    <ul>
+        {% for subgrade in subgrades %}
+            <li>
+                {{ subgrade }}
+                <a href="{% url 'delete_subgrade' subgrade.id %}" onclick="return confirm('Вы уверены, что хотите удалить этот подкласс?');">Удалить</a>
+            </li>
+        {% empty %}
+            <li>Подклассы отсутствуют.</li>
+        {% endfor %}
+    </ul>
+
+</body>
+</html>

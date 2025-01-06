@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Расписание для {{ subgrade }}</title>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1e40af;
+            --background-color: #f1f5f9;
+            --card-background: #ffffff;
+            --text-color: #1f2937;
+            --border-radius: 12px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--primary-color);
+            font-size: 2rem;
+            margin: 2rem 0;
+            font-weight: 700;
+        }
+
+        .schedule-grid {
+            display: grid;
+            grid-template-rows: auto auto;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .schedule-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .schedule-card {
+            background: var(--card-background);
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            overflow: hidden;
+            height: 100%;
+        }
+
+        .day-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem;
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: var(--card-background);
+        }
+
+        th {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 0.75rem;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        td {
+            padding: 0.75rem;
+            border-bottom: 1px solid #e5e7eb;
+            font-size: 0.9rem;
+        }
+
+        .lesson-row:hover {
+            background-color: #f8fafc;
+        }
+
+        .no-lessons {
+            padding: 1.5rem;
+            text-align: center;
+            color: #dc2626;
+            font-style: italic;
+            background-color: #fee2e2;
+        }
+
+        .time-cell {
+            font-family: 'Monaco', monospace;
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+
+        .subject-cell {
+            font-weight: 500;
+        }
+
+        @media (max-width: 1024px) {
+            .schedule-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .schedule-card {
+                margin-bottom: 1rem;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 0;
+            }
+
+            table {
+                display: block;
+                overflow-x: auto;
+            }
+
+            td, th {
+                white-space: nowrap;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+                margin: 1rem 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Расписание для {{ subgrade }}</h1>
+        <div class="schedule-grid">
+            <!-- Первый ряд (ПН-СР) -->
+            <div class="schedule-row">
+                {% for day_name, lessons in lessons_by_day.items %}
+                    {% if forloop.counter <= 3 %}
+                        <div class="schedule-card">
+                            <div class="day-header">
+                                {{ day_name }}
+                            </div>
+                            {% if lessons|length > 0 %}
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Начало</th>
+                                            <th>Конец</th>
+                                            <th>Предмет</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for lesson in lessons %}
+                                            <tr class="lesson-row">
+                                                <td class="time-cell">{{ lesson.start_time|time:"H:i" }}</td>
+                                                <td class="time-cell">{{ lesson.end_time|time:"H:i" }}</td>
+                                                <td class="subject-cell">{{ lesson.subject }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            {% else %}
+                                <div class="no-lessons">
+                                    Нет уроков
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            
+            <!-- Второй ряд (ЧТ-СБ) -->
+            <div class="schedule-row">
+                {% for day_name, lessons in lessons_by_day.items %}
+                    {% if forloop.counter > 3 and forloop.counter <= 6 %}
+                        <div class="schedule-card">
+                            <div class="day-header">
+                                {{ day_name }}
+                            </div>
+                            {% if lessons|length > 0 %}
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Начало</th>
+                                            <th>Конец</th>
+                                            <th>Предмет</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for lesson in lessons %}
+                                            <tr class="lesson-row">
+                                                <td class="time-cell">{{ lesson.start_time|time:"H:i" }}</td>
+                                                <td class="time-cell">{{ lesson.end_time|time:"H:i" }}</td>
+                                                <td class="subject-cell">{{ lesson.subject }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            {% else %}
+                                <div class="no-lessons">
+                                    Нет уроков
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>

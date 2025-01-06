@@ -1,0 +1,414 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Дашборд</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+            background: #e6ffe6; 
+            color: #006400; /* Тёмно-зелёный цвет текста */
+            display: flex;
+            flex-direction: column; /* Вертикальная структура */
+            height: 100vh; /* Высота на весь экран */
+            overflow: hidden;
+        }
+
+        /* Верхний заголовок */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #e6ffe6; 
+            padding: 20px 30px;
+            border-bottom: 1px solid #d4d4d4; /* Линия под заголовком */
+            font-size: 20px;
+        }
+
+        .header .welcome {
+            color: #333;
+            font-weight: bold;
+        }
+
+        .header .admin-panel {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: #007BFF;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .header .admin-panel img {
+            width: 30px;
+            height: 30px;
+            margin-left: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .header .admin-panel img:hover {
+            transform: scale(1.2);
+        }
+
+        /* Основной контент */
+        .main {
+            display: flex;
+            flex: 1;
+            height: calc(100vh - 82px); /* Учитываем высоту заголовка */
+            padding: 20px 20px;
+        }
+
+        /* Левая панель для слайдов */
+        .left-panel {
+            flex: 1;
+            background: #ffffff;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 2px solid #006400; /* Разделительная линия справа */
+            border-radius: 25px;
+        }
+
+        .left-panel h2 {
+            font-size: 24px;
+            color: #333;
+        }
+
+        .left-panel img {
+            width: 100%;
+            max-width: 280px; /* Уменьшенный размер слайдов */
+            margin-bottom: 20px;
+            border-radius: 25px; /* Скругленные углы для слайдов */
+            border: 2px solid #d4d4d4; /* Бордер вокруг слайда */
+        }
+
+        /* Правая панель для новостей и классов */
+        .right-panel {
+            flex: 1;
+            background: #ffffff;
+            display: flex;
+            flex-direction: column;
+            padding-left: 20px;
+            background: #e6ffe6; 
+            overflow-y: auto;
+        }
+
+        /* Секция новостей */
+        .news-section {
+            flex: 1;
+            margin-bottom: 20px;
+            overflow-y: auto;
+            border: 2px solid #007BFF; /* Бордер для новостей */
+            border-radius: 25px; /* Скруглённые углы */
+            padding: 20px;
+            background: #f9f9f9; /* Светлый фон */
+        }
+
+        .news-section h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .news-item {
+            margin-bottom: 15px;
+            padding: 10px;
+            background: #e6ffe6;
+            border-radius: 15px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Секция классов */
+        .class-section {
+            flex: 1;
+            overflow-y: auto;
+            border: 2px solid #FFA500; /* Бордер для расписания */
+            border-radius: 25px; /* Скруглённые углы */
+            padding: 20px;
+            background: #f9f9f9; /* Светлый фон */
+        }
+
+        .class-section h2 {
+            font-size: 24px;
+            margin-bottom: 25px;
+            color: #333;
+            text-align: center;
+        }
+
+        ul {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px; /* Меньшее расстояние между элементами */
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            border-radius: 15px; /* Скруглённые углы */
+            width: 120px; /* Уменьшенная ширина */
+            height: 120px; /* Уменьшенная высота */
+            background: rgb(123, 209, 53);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        li:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        li a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            font-size: 16px; /* Меньший шрифт */
+            overflow: hidden;
+        }
+
+        body.modal-open {
+            overflow: hidden;
+            padding-right: 17px; /* Ширина полосы прокрутки */
+        }
+
+        .modal {
+            display: none; /* Скрыто по умолчанию */
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4); /* Полупрозрачный фон */
+        }
+
+    .modal-content {
+        background-color: #fefefe;
+        margin: 5% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+    }
+
+    .slides img {
+        width: 100%;
+        max-width: 300px;
+        margin: 10px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .slideshow {
+        width: 100%;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .slide {
+        text-align: center;
+        margin: 20px 0;
+    }
+
+    .slide img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .slide h3 {
+        margin: 10px 0;
+        font-size: 1.2em;
+        color: #333;
+    }
+    </style>
+
+</head>
+<body>
+    <div class="header">
+        <div class="welcome">Добро пожаловать в школу {{ request.user }}</div>
+        <a href="{% url 'custom_admin_dashboard' %}" class="admin-panel">
+            <img src="{% static 'img/home-button.png' %}" alt="Админ-панель">
+        </a>
+    </div>
+
+    <!-- Основной контент -->
+    <div class="main">
+        <!-- Левая панель: слайды -->
+        <div class="left-panel">
+            <h2>Слайды</h2>
+            {% if slides %}
+                <div class="slideshow">
+                    {% for slide in slides %}
+                        <div class="slide" {% if not forloop.first %}style="display: none;"{% endif %}>
+                            <!-- <h3>{{ slide.title }}</h3> -->
+                            <img src="{{ slide.slide.url }}" 
+                                 alt="Слайд {{ forloop.counter }}"
+                                 style="width: 100%;
+                                        max-width: 800px;
+                                        height: auto;
+                                        display: block;
+                                        margin: 0 auto;
+                                        border-radius: 8px;
+                                        box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                        </div>
+                    {% endfor %}
+                </div>
+        
+                <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        const slides = document.querySelectorAll('.slide');
+                        let currentIndex = 0;
+        
+                        function showSlide(index) {
+                            slides.forEach((slide, i) => {
+                                slide.style.display = i === index ? 'block' : 'none';
+                            });
+                        }
+        
+                        function nextSlide() {
+                            currentIndex = (currentIndex + 1) % slides.length;
+                            showSlide(currentIndex);
+                        }
+        
+                        // Show first slide immediately
+                        showSlide(0);
+        
+                        // Start slideshow if there are multiple slides
+                        if (slides.length > 1) {
+                            setInterval(nextSlide, 5000);
+                        }
+                    });
+                </script>
+            {% else %}
+                <p>Нет доступных слайдов</p>
+            {% endif %}
+        </div>
+        
+        <!-- Правая панель -->
+        <div class="right-panel">
+            <!-- Секция новостей -->
+            <div class="news-section">
+                <h2>Новости</h2>
+                {% if news %}
+                    {% for item in news %}
+                        <div class="news-item">
+                            <strong>{{ item.title }}</strong>
+                            <p>{{ item.content|truncatewords:15 }}</p>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p>Новостей пока нет.</p>
+                {% endif %}
+            </div>
+
+            <!-- Секция классов -->
+            <div class="class-section">
+                <h2 class="h2-class">Расписание школы</h2>
+                <ul>
+                    {% for grade in grades %}
+                    <li> <a href="#" onclick="openSubgradeModal({{ grade.id }}, event)">
+                        {{ grade.number }} Класс
+                    </a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- Subgrade Modal -->
+<div id="modal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <div id="modal-body">Загрузка...</div>
+    </div>
+</div>
+
+<!-- Lesson Modal -->
+<div id="lesson-modal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <div id="lesson-modal-body">Загрузка...</div>
+    </div>
+</div>
+
+
+    <script>
+      // Open subgrade modal
+        function openSubgradeModal(gradeId, event) {
+            event.preventDefault();
+            const modal = document.getElementById('modal');
+            const modalBody = document.getElementById('modal-body');
+
+            // Show modal
+            modal.style.display = "block";
+            document.body.classList.add("modal-open");
+
+            // Fetch subgrade list
+            fetch(`/subgrade_list/${gradeId}/`)
+                .then(response => response.text())
+                .then(html => {
+                    modalBody.innerHTML = html;
+                })
+                .catch(error => {
+                    modalBody.innerHTML = "Ошибка загрузки данных.";
+                });
+        }
+
+        // Open lesson modal
+        function openLessonModal(subgradeId, event) {
+            event.preventDefault();
+            const lessonModal = document.getElementById('lesson-modal');
+            const lessonModalBody = document.getElementById('lesson-modal-body');
+
+            // Show modal
+            lessonModal.style.display = "block";
+            document.body.classList.add("modal-open");
+
+            // Fetch lesson schedule
+            fetch(`/lesson_schedule/${subgradeId}/`)
+                .then(response => response.text())
+                .then(html => {
+                    lessonModalBody.innerHTML = html;
+                })
+                .catch(error => {
+                    lessonModalBody.innerHTML = "Ошибка загрузки данных.";
+                });
+        }
+
+        // Close modals
+        function closeModal() {
+            document.getElementById('modal').style.display = "none";
+            document.getElementById('lesson-modal').style.display = "none";
+            document.body.classList.remove("modal-open");
+        }
+
+    </script>
+</body>
+</html>
