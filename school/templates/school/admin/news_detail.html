@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   
+    <style>
+        .centered-image-container {
+            display: flex; /* Включаем Flexbox */
+            justify-content: center; /* Центрируем изображение по горизонтали */
+            align-items: center; /* Центрируем изображение по вертикали */
+            width: 100%; /* Контейнер занимает всю ширину */
+            height: auto; /* Высота контейнера подстраивается под содержимое */
+            margin: 20px 0; /* Отступы сверху и снизу для разделения */
+        }
+
+        .centered-image-container img {
+            max-width: 100%; /* Изображение не превышает ширину контейнера */
+            height: auto; /* Сохраняет пропорции изображения */
+            border-radius: 1px; /* Скруглённые углы */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Лёгкая тень вокруг изображения */
+            display: block; /* Убирает лишние отступы */
+        }
+    </style>
+</head>
+<body>
+    <div class="modal-content">
+        <h2>{{ news.title }}</h2>
+        <p>{{ news.content }}</p>
+        {% if news.images %}
+            <div class="centered-image-container">
+                <img src="{{ news.images.url }}" alt="{{ news.title }}">
+            </div>
+        {% endif %}
+    </div>
+    
+</body>
+</html>

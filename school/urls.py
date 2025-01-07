@@ -29,6 +29,10 @@ urlpatterns = [
     
     path('custom_admin/lessons/add/', views.add_lesson, name='add_lesson'),
     path('custom_admin/lessons/delete/<int:lesson_id>/', views.delete_lesson, name='delete_lesson'),
+    path('manage_news/', views.manage_news, name='manage_news'),
+    path('edit_news/<int:news_id>/', views.edit_news, name='edit_news'),
+    path('delete_news/<int:news_id>/', views.delete_news, name='delete_news'),
+    path('news_detail/<int:news_id>/', views.news_detail, name='news_detail'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 

@@ -69,7 +69,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            border: 2px solid #006400; /* Разделительная линия справа */
+            border: 1px solid #d4d4d4; /* Разделительная линия справа */
             border-radius: 25px;
         }
 
@@ -83,7 +83,7 @@
             max-width: 280px; /* Уменьшенный размер слайдов */
             margin-bottom: 20px;
             border-radius: 25px; /* Скругленные углы для слайдов */
-            border: 2px solid #d4d4d4; /* Бордер вокруг слайда */
+            border: 1px solid #d4d4d4; /* Бордер вокруг слайда */
         }
 
         /* Правая панель для новостей и классов */
@@ -102,7 +102,7 @@
             flex: 1;
             margin-bottom: 20px;
             overflow-y: auto;
-            border: 2px solid #007BFF; /* Бордер для новостей */
+            border: 1px solid #d4d4d4; /* Бордер для новостей */
             border-radius: 25px; /* Скруглённые углы */
             padding: 20px;
             background: #f9f9f9; /* Светлый фон */
@@ -117,7 +117,8 @@
         .news-item {
             margin-bottom: 15px;
             padding: 10px;
-            background: #e6ffe6;
+            
+            background: #f9f9f9; /* Светлый фон */
             border-radius: 15px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
@@ -126,7 +127,7 @@
         .class-section {
             flex: 1;
             overflow-y: auto;
-            border: 2px solid #FFA500; /* Бордер для расписания */
+            border: 1px solid #d4d4d4; /* Бордер для расписания */
             border-radius: 25px; /* Скруглённые углы */
             padding: 20px;
             background: #f9f9f9; /* Светлый фон */
@@ -197,7 +198,7 @@
         background-color: #fefefe;
         margin: 5% auto;
         padding: 20px;
-        border: 1px solid #888;
+        
         width: 80%;
         border-radius: 10px;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
@@ -229,6 +230,7 @@
         width: 100%;
         max-width: 800px;
         margin: 0 auto;
+        margin-top: 50px;
     }
 
     .slide {
@@ -248,6 +250,21 @@
         font-size: 1.2em;
         color: #333;
     }
+    .news-section {
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 25px;
+    border: 1px solid #d4d4d4;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    cursor: pointer; /* Курсор указывает, что вся секция кликабельная */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.news-section:hover {
+    transform: scale(1.02); /* Лёгкое увеличение секции при наведении */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
     </style>
 
 </head>
@@ -318,16 +335,28 @@
             <div class="news-section">
                 <h2>Новости</h2>
                 {% if news %}
-                    {% for item in news %}
-                        <div class="news-item">
-                            <strong>{{ item.title }}</strong>
-                            <p>{{ item.content|truncatewords:15 }}</p>
-                        </div>
-                    {% endfor %}
+                    <div class="news-grid">
+                        {% for item in news %}
+                            <div class="news-item" onclick="openNewsModal({{ item.id }});">
+                                <div class="news-content">
+                                    <strong>{{ item.title }}</strong>
+                                    <p>{{ item.content|truncatewords:50 }}</p>
+                                    {% if item.images %}
+                                        <img src="{{ item.images.url }}" alt="{{ item.title }}" style="margin: 0 auto; display: block;">
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
                 {% else %}
                     <p>Новостей пока нет.</p>
                 {% endif %}
             </div>
+            
+            
+            
+            
+            
 
             <!-- Секция классов -->
             <div class="class-section">
@@ -357,6 +386,42 @@
         <div id="lesson-modal-body">Загрузка...</div>
     </div>
 </div>
+
+<div id="news-modal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <div id="news-modal-body">Загрузка...</div>
+    </div>
+</div>
+
+<script>
+ function openNewsModal(newsId) {
+    const modal = document.getElementById('news-modal');
+    const modalBody = document.getElementById('news-modal-body');
+
+    // Показать модальное окно
+    modal.style.display = "block";
+    document.body.classList.add("modal-open");
+
+    // Загружаем данные о новости через AJAX
+    fetch(`/news_detail/${newsId}/`) // Выберите ID новости для загрузки
+        .then(response => response.json())
+        .then(data => {
+            modalBody.innerHTML = data.html; // Загружаем HTML содержимое
+        })
+        .catch(error => {
+            modalBody.innerHTML = "Ошибка загрузки данных.";
+        });
+}
+
+function closeModal() {
+    const modal = document.getElementById('news-modal');
+    modal.style.display = "none";
+    document.body.classList.remove("modal-open");
+}
+
+
+</script>
 
 
     <script>
@@ -406,8 +471,10 @@
         function closeModal() {
             document.getElementById('modal').style.display = "none";
             document.getElementById('lesson-modal').style.display = "none";
+            document.getElementById('news-modal').style.display = "none"; // Добавляем закрытие #news-modal
             document.body.classList.remove("modal-open");
         }
+
 
     </script>
 </body>
