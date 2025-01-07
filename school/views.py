@@ -88,13 +88,6 @@ def user_logout_view(request):
 #     grades = Grade.objects.filter(school=user_school).order_by('number')
 #     return render(request, 'school/grade_list.html', {'grades': grades})
 
-@login_required
-def grade_list(request):
-    user_school = request.user.school_user.school
-    grades = Grade.objects.filter(school=user_school).order_by('number')
-    powerpoints = PowerPointUpload.objects.all()
-    return render(request, 'school/grade_list.html', {'grades': grades, 'powerpoints': powerpoints})
-
 # Список подклассов для выбранного класса
 @login_required
 def subgrade_list(request, grade_id):
@@ -491,7 +484,69 @@ def grade_list(request):
     grades = Grade.objects.filter(school=user_school).order_by('number')
     # Only get slides for the current user's school
     slides = PowerPointSlide.objects.filter(school=user_school).order_by('order')
+    news = News.objects.filter(school=user_school).order_by('-created_at')
     return render(request, 'school/grade_list.html', {
         'grades': grades,
-        'slides': slides
+        'slides': slides,
+        'news': news,
     })
+
+from .models import News
+from .forms import NewsForm
+
+@login_required
+def manage_news(request):
+    user_school = request.user.school_user.school
+    news_list = News.objects.filter(school=user_school).order_by('-created_at')
+
+    if request.method == 'POST':
+        form = NewsForm(request.POST, request.FILES)
+        if form.is_valid():
+            news = form.save(commit=False)
+            news.school = user_school
+            news.save()
+            messages.success(request, "Новость успешно добавлена!")
+            return redirect('manage_news')
+    else:
+        form = NewsForm()
+
+    return render(request, 'school/admin/manage_news.html', {'news_list': news_list, 'form': form})
+
+@login_required
+def edit_news(request, news_id):
+    user_school = request.user.school_user.school
+    news = get_object_or_404(News, id=news_id, school=user_school)
+
+    if request.method == 'POST':
+        form = NewsForm(request.POST, request.FILES, instance=news)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Новость успешно обновлена!")
+            return redirect('manage_news')
+    else:
+        form = NewsForm(instance=news)
+
+    return render(request, 'school/admin/edit_news.html', {'form': form, 'news': news})
+
+
+from django.shortcuts import redirect
+
+@login_required
+def delete_news(request, news_id):
+    user_school = request.user.school_user.school
+    news = get_object_or_404(News, id=news_id, school=user_school)
+    news.delete()
+    messages.success(request, "Новость успешно удалена!")
+    return redirect('manage_news')
+
+from django.http import JsonResponse
+from django.template.loader import render_to_string
+
+@login_required
+def news_detail(request, news_id):
+    user_school = request.user.school_user.school
+    news = get_object_or_404(News, id=news_id, school=user_school)
+
+    if request.method == "GET":
+        html = render_to_string('school/admin/news_detail.html', {'news': news}, request)
+        return JsonResponse({'html': html})

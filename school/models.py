@@ -99,3 +99,18 @@ class PowerPointSlide(models.Model):
             if storage.exists(self.slide.name):
                 storage.delete(self.slide.name)
         super().delete(*args, **kwargs)
+
+
+class News(models.Model):
+    school = models.ForeignKey(School, on_delete=models.CASCADE, related_name='news')
+    title = models.CharField(max_length=255)
+    content = models.TextField()
+    images = models.ImageField(upload_to='news_images/', blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = "Новость"
+        verbose_name_plural = "Новости"
+
+    def __str__(self):
+        return self.title

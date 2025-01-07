@@ -35,3 +35,13 @@ class PowerPointUploadForm(forms.Form):
     file = forms.FileField(help_text='Выберите PowerPoint файл')
 
 
+from django import forms
+from .models import News
+
+class NewsForm(forms.ModelForm):
+    class Meta:
+        model = News
+        fields = ['title', 'content', 'images']
+        widgets = {
+            'content': forms.Textarea(attrs={'rows': 5}),
+        }
