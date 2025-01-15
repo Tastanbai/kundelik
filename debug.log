@@ -1,0 +1,128 @@
+Watching for file changes with StatReloader
+Retrieved 0 slides for school 4
+Processing file: Презентация_по_окружающему_миру_про_корабль__Гото_предистинация__3LWWLiR_Fp4oOM4.pptx, size: 208096
+Created directory: C:\Users\Asus\mysite\media\slides\4
+Loaded presentation with 5 slides
+Deleted existing slides
+Error processing slide 1: 
+Error processing slide 2: 
+Error processing slide 3: 
+Error processing slide 4: 
+Error processing slide 5: 
+Retrieved 0 slides for school 4
+C:\Users\Asus\mysite\school\views.py changed, reloading.
+Watching for file changes with StatReloader
+Retrieved 0 slides for school 4
+Processing file: Презентация_по_окружающему_миру_про_корабль__Гото_предистинация__3LWWLiR_Fp4oOM4.pptx, size: 208096
+Created directory: C:\Users\Asus\mysite\media\slides\4
+Loaded presentation with 5 slides
+Deleted existing slides
+Saved slide 1 to slides/4/slide_1.jpg
+Saved slide 2 to slides/4/slide_2.jpg
+Saved slide 3 to slides/4/slide_3.jpg
+Saved slide 4 to slides/4/slide_4.jpg
+Saved slide 5 to slides/4/slide_5.jpg
+Retrieved 5 slides for school 4
+Slide 0: /media/slides/4/slide_1.jpg
+Slide 1: /media/slides/4/slide_2.jpg
+Slide 2: /media/slides/4/slide_3.jpg
+Slide 3: /media/slides/4/slide_4.jpg
+Slide 4: /media/slides/4/slide_5.jpg
+Retrieved 5 slides for school 4
+Slide 0: /media/slides/4/slide_1.jpg
+Slide 1: /media/slides/4/slide_2.jpg
+Slide 2: /media/slides/4/slide_3.jpg
+Slide 3: /media/slides/4/slide_4.jpg
+Slide 4: /media/slides/4/slide_5.jpg
+C:\Users\Asus\mysite\school\views.py changed, reloading.
+Watching for file changes with StatReloader
+Retrieved 5 slides for school 4
+Slide 0: /media/slides/4/slide_1.jpg
+Slide 1: /media/slides/4/slide_2.jpg
+Slide 2: /media/slides/4/slide_3.jpg
+Slide 3: /media/slides/4/slide_4.jpg
+Slide 4: /media/slides/4/slide_5.jpg
+Processing file: Презентация_по_окружающему_миру_про_корабль__Гото_предистинация__3LWWLiR_Fp4oOM4.pptx, size: 208096
+Error during PDF conversion: [WinError 2] Не удается найти указанный файл
+Upload error: [WinError 2] Не удается найти указанный файл
+Traceback (most recent call last):
+  File "C:\Users\Asus\mysite\school\views.py", line 609, in upload
+    subprocess.run([
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python312\Lib\subprocess.py", line 548, in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python312\Lib\subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python312\Lib\subprocess.py", line 1538, in _execute_child
+    hp, ht, pid, tid = _winapi.CreateProcess(executable, args,
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [WinError 2] Не удается найти указанный файл
+C:\Users\Asus\mysite\school\views.py changed, reloading.
+Watching for file changes with StatReloader
+Retrieved 0 slides for school 4
+Обработка файла: Презентация_по_окружающему_миру_про_корабль__Гото_предистинация__3LWWLiR_Fp4oOM4.pptx, размер: 208096
+Ошибка конвертации: [WinError 2] Не удается найти указанный файл
+Traceback (most recent call last):
+  File "C:\Users\Asus\mysite\school\views.py", line 628, in upload
+    process = subprocess.run(
+              ^^^^^^^^^^^^^^^
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python312\Lib\subprocess.py", line 548, in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python312\Lib\subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python312\Lib\subprocess.py", line 1538, in _execute_child
+    hp, ht, pid, tid = _winapi.CreateProcess(executable, args,
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [WinError 2] Не удается найти указанный файл
+Ошибка загрузки: [WinError 2] Не удается найти указанный файл
+Traceback (most recent call last):
+  File "C:\Users\Asus\mysite\school\views.py", line 628, in upload
+    process = subprocess.run(
+              ^^^^^^^^^^^^^^^
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python312\Lib\subprocess.py", line 548, in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python312\Lib\subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python312\Lib\subprocess.py", line 1538, in _execute_child
+    hp, ht, pid, tid = _winapi.CreateProcess(executable, args,
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [WinError 2] Не удается найти указанный файл
+C:\Users\Asus\mysite\school\views.py changed, reloading.
+Watching for file changes with StatReloader
+Retrieved 0 slides for school 4
+Retrieved 0 slides for school 4
+Processing file: Презентация_по_окружающему_миру_про_корабль__Гото_предистинация__3LWWLiR_Fp4oOM4.pptx, size: 208096
+Conversion error: PowerPoint conversion failed. Please ensure LibreOffice is installed. Error: [WinError 2] Не удается найти указанный файл
+Traceback (most recent call last):
+  File "C:\Users\Asus\mysite\school\views.py", line 655, in upload
+    raise Exception(f"PowerPoint conversion failed. Please ensure LibreOffice is installed. Error: {conversion_error}")
+Exception: PowerPoint conversion failed. Please ensure LibreOffice is installed. Error: [WinError 2] Не удается найти указанный файл
+Upload error: PowerPoint conversion failed. Please ensure LibreOffice is installed. Error: [WinError 2] Не удается найти указанный файл
+Traceback (most recent call last):
+  File "C:\Users\Asus\mysite\school\views.py", line 655, in upload
+    raise Exception(f"PowerPoint conversion failed. Please ensure LibreOffice is installed. Error: {conversion_error}")
+Exception: PowerPoint conversion failed. Please ensure LibreOffice is installed. Error: [WinError 2] Не удается найти указанный файл
+Retrieved 0 slides for school 4
+C:\Users\Asus\mysite\school\views.py changed, reloading.
+Watching for file changes with StatReloader
+Retrieved 0 slides for school 4
+Processing file: Презентация_по_окружающему_миру_про_корабль__Гото_предистинация__3LWWLiR_Fp4oOM4.pptx, size: 208096
+Saved slide 1 to slides/4/slide_1.jpg
+Saved slide 2 to slides/4/slide_2.jpg
+Saved slide 3 to slides/4/slide_3.jpg
+Saved slide 4 to slides/4/slide_4.jpg
+Saved slide 5 to slides/4/slide_5.jpg
+Retrieved 5 slides for school 4
+Slide 0: /media/slides/4/slide_1.jpg
+Slide 1: /media/slides/4/slide_2.jpg
+Slide 2: /media/slides/4/slide_3.jpg
+Slide 3: /media/slides/4/slide_4.jpg
+Slide 4: /media/slides/4/slide_5.jpg
+Retrieved 5 slides for school 4
+Slide 0: /media/slides/4/slide_1.jpg
+Slide 1: /media/slides/4/slide_2.jpg
+Slide 2: /media/slides/4/slide_3.jpg
+Slide 3: /media/slides/4/slide_4.jpg
+Slide 4: /media/slides/4/slide_5.jpg
