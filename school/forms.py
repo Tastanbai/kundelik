@@ -29,11 +29,6 @@ class LoginForm(forms.Form):
     username = forms.CharField(label="Имя пользователя")
     password = forms.CharField(label="Пароль", widget=forms.PasswordInput)
 
-# forms.py
-class PowerPointUploadForm(forms.Form):
-    title = forms.CharField(max_length=255)
-    file = forms.FileField(help_text='Выберите PowerPoint файл')
-
 
 from django import forms
 from .models import News
@@ -45,3 +40,24 @@ class NewsForm(forms.ModelForm):
         widgets = {
             'content': forms.Textarea(attrs={'rows': 5}),
         }
+
+
+
+from django import forms
+from .models import Slide
+
+class SlideForm(forms.ModelForm):
+    class Meta:
+        model = Slide
+        fields = ['title', 'pdf_file']
+        widgets = {
+            'title': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Введите название презентации',
+            }),
+            'pdf_file': forms.ClearableFileInput(attrs={
+                'class': 'form-control',
+                'accept': 'application/pdf',
+            }),
+        }
+

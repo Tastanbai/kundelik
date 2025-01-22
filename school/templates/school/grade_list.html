@@ -23,8 +23,8 @@
             justify-content: space-between;
             align-items: center;
             background: #e6ffe6; 
-            padding: 20px 30px;
-            border-bottom: 1px solid #d4d4d4; /* Линия под заголовком */
+            padding: 10px 20px;
+            border-bottom: 1px solid #d4d4d4; 
             font-size: 20px;
         }
 
@@ -52,25 +52,25 @@
         .header .admin-panel img:hover {
             transform: scale(1.2);
         }
-
-        /* Основной контент */
         .main {
             display: flex;
             flex: 1;
-            height: calc(100vh - 82px); /* Учитываем высоту заголовка */
-            padding: 20px 20px;
+            padding: 20px;
         }
 
-        /* Левая панель для слайдов */
+        /* Левая панель */
         .left-panel {
             flex: 1;
-            background: #ffffff;
-            overflow-y: auto;
             display: flex;
             flex-direction: column;
             align-items: center;
-            border: 1px solid #d4d4d4; /* Разделительная линия справа */
-            border-radius: 25px;
+            justify-content: center;
+            background: #ffffff;
+            border: 2px solid #d4d4d4;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            height: 95%;
         }
 
         .left-panel h2 {
@@ -78,12 +78,17 @@
             color: #333;
         }
 
-        .left-panel img {
-            width: 100%;
-            max-width: 280px; /* Уменьшенный размер слайдов */
-            margin-bottom: 20px;
-            border-radius: 25px; /* Скругленные углы для слайдов */
-            border: 1px solid #d4d4d4; /* Бордер вокруг слайда */
+        #pdf-viewer-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+
+        #pdf-canvas {
+            display: block;
+            max-width: 100%;
+            height: auto;
         }
 
         /* Правая панель для новостей и классов */
@@ -194,79 +199,71 @@
             background-color: rgba(0, 0, 0, 0.4); /* Полупрозрачный фон */
         }
 
-    .modal-content {
-        background-color: #fefefe;
-        margin: 5% auto;
-        padding: 20px;
-        
-        width: 80%;
-        border-radius: 10px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            
+            width: 80%;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
 
-    .close {
-        color: #aaa;
-        float: right;
-        font-size: 28px;
-        font-weight: bold;
-        cursor: pointer;
-    }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
 
-    .close:hover,
-    .close:focus {
-        color: black;
-        text-decoration: none;
-    }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+        }
 
-    .slides img {
-        width: 100%;
-        max-width: 300px;
-        margin: 10px;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    }
+        .news-section {
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 25px;
+            border: 1px solid #d4d4d4;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            overflow-y: auto;
+            max-height: 400px; /* Ограничение высоты раздела новостей */
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
 
-    .slideshow {
-        width: 100%;
-        max-width: 800px;
-        margin: 0 auto;
-        margin-top: 50px;
-    }
+        .news-section:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
 
-    .slide {
-        text-align: center;
-        margin: 20px 0;
-    }
+        .news-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
 
-    .slide img {
-        max-width: 100%;
-        height: auto;
-        border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
+        .news-item {
+            padding: 10px;
+            background: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.2s ease;
+        }
 
-    .slide h3 {
-        margin: 10px 0;
-        font-size: 1.2em;
-        color: #333;
-    }
-    .news-section {
-    padding: 20px;
-    background: #f9f9f9;
-    border-radius: 25px;
-    border: 1px solid #d4d4d4;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    cursor: pointer; /* Курсор указывает, что вся секция кликабельная */
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
+        .news-item:hover {
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+        }
 
-.news-section:hover {
-    transform: scale(1.02); /* Лёгкое увеличение секции при наведении */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
+        .news-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
     </style>
-
 </head>
 <body>
     <div class="header">
@@ -278,36 +275,76 @@
 
     <!-- Основной контент -->
     <div class="main">
-        <!-- Левая панель: слайды -->
-        <!-- In your grade_list.html template, replace the slides section with: -->
-<div class="left-panel">
-    <h2>Слайды</h2>
-    {% if slides %}
-        <div class="slideshow">
-            {% for slide in slides %}
-                <div class="slide" {% if not forloop.first %}style="display: none;"{% endif %}>
-                    <img src="{{ slide.slide.url }}" 
-                         alt="Слайд {{ forloop.counter }}"
-                         style="width: 100%;
-                                max-width: 800px;
-                                height: auto;
-                                display: block;
-                                margin: 0 auto;
-                                border-radius: 8px;
-                                box-shadow: 0 2px 4px rgba(0,0,0,0.1);"
-                         onerror="console.log('Error loading image:', this.src);">
+        <div class="left-panel">
+            <h2>Ваши презентации</h2>
+            {% if slides %}
+                <div id="pdf-viewer-container">
+                    <canvas id="pdf-canvas"></canvas>
                 </div>
-            {% endfor %}
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+                <script>
+                     const slides = [
+    {% for slide in slides %}
+    "{{ slide.pdf_file.url }}",
+    {% endfor %}
+];
+
+let currentSlideIndex = 0;
+let currentPageIndex = 1;
+let pdfDoc = null;
+
+// Функция для загрузки PDF
+function loadPDF(url) {
+    const pdfjsLib = window['pdfjs-dist/build/pdf'];
+    pdfjsLib.getDocument(url).promise.then(function(pdf) {
+        pdfDoc = pdf; // Сохраняем документ в переменную
+        currentPageIndex = 1; // Начинаем с первой страницы
+        renderPage(); // Рендерим первую страницу
+    });
+}
+
+// Функция для рендеринга текущей страницы
+function renderPage() {
+    pdfDoc.getPage(currentPageIndex).then(function(page) {
+        const canvas = document.getElementById('pdf-canvas');
+        const ctx = canvas.getContext('2d');
+        const viewport = page.getViewport({ scale: 1.2 });
+
+        canvas.width = viewport.width;
+        canvas.height = viewport.height;
+
+        const renderContext = {
+            canvasContext: ctx,
+            viewport: viewport,
+        };
+
+        page.render(renderContext).promise.then(() => {
+            // Увеличиваем индекс страницы или переходим к следующему PDF
+            currentPageIndex++;
+            if (currentPageIndex > pdfDoc.numPages) {
+                currentPageIndex = 1; // Сбрасываем на первую страницу
+                currentSlideIndex = (currentSlideIndex + 1) % slides.length; // Переходим к следующему PDF
+                loadPDF(slides[currentSlideIndex]);
+            } else {
+                setTimeout(renderPage, 10000); // Переход к следующей странице через 10 секунд
+            }
+        });
+    });
+} 
+
+// Загрузка первого PDF при загрузке страницы
+loadPDF(slides[currentSlideIndex]);
+
+                </script>
+            {% else %}
+                <p>У вас пока нет загруженных презентаций.</p>
+            {% endif %}
         </div>
-    {% else %}
-        <p>Нет доступных слайдов</p>
-    {% endif %}
-</div>
         
         <!-- Правая панель -->
         <div class="right-panel">
             <!-- Секция новостей -->
-            <div class="news-section">
+            <div class="news-section" style="overflow-y: auto; max-height: 400px;">
                 <h2>Новости</h2>
                 {% if news %}
                     <div class="news-grid">
@@ -317,7 +354,7 @@
                                     <strong>{{ item.title }}</strong>
                                     <p>{{ item.content|truncatewords:50 }}</p>
                                     {% if item.images %}
-                                        <img src="{{ item.images.url }}" alt="{{ item.title }}" style="margin: 0 auto; display: block;">
+                                        <img src="{{ item.images.url }}" alt="{{ item.title }}" style="margin: 0 auto; display: block; max-width: 100%; height: auto;">
                                     {% endif %}
                                 </div>
                             </div>
@@ -341,138 +378,99 @@
             </div>
         </div>
     </div>
-    <!-- Subgrade Modal -->
-<div id="modal" class="modal">
-    <div class="modal-content">
+
+<!-- Subgrade Modal -->
+<div id="modal" class="modal" onclick="outsideClickClose(event, 'modal')">
+    <div class="modal-content" onclick="event.stopPropagation();">
         <span class="close" onclick="closeModal()">&times;</span>
         <div id="modal-body">Загрузка...</div>
     </div>
 </div>
 
 <!-- Lesson Modal -->
-<div id="lesson-modal" class="modal">
-    <div class="modal-content">
+<div id="lesson-modal" class="modal" onclick="outsideClickClose(event, 'lesson-modal')">
+    <div class="modal-content" onclick="event.stopPropagation();">
         <span class="close" onclick="closeModal()">&times;</span>
         <div id="lesson-modal-body">Загрузка...</div>
     </div>
 </div>
 
-<div id="news-modal" class="modal">
-    <div class="modal-content">
+<div id="news-modal" class="modal" onclick="outsideClickClose(event, 'news-modal')">
+    <div class="modal-content" onclick="event.stopPropagation();">
         <span class="close" onclick="closeModal()">&times;</span>
         <div id="news-modal-body">Загрузка...</div>
     </div>
 </div>
 
 <script>
- function openNewsModal(newsId) {
-    const modal = document.getElementById('news-modal');
-    const modalBody = document.getElementById('news-modal-body');
+     function openNewsModal(newsId) {
+        const modal = document.getElementById('news-modal');
+        const modalBody = document.getElementById('news-modal-body');
 
-    // Показать модальное окно
-    modal.style.display = "block";
-    document.body.classList.add("modal-open");
+        modal.style.display = "block";
+        document.body.classList.add("modal-open");
 
-    // Загружаем данные о новости через AJAX
-    fetch(`/news_detail/${newsId}/`) // Выберите ID новости для загрузки
-        .then(response => response.json())
-        .then(data => {
-            modalBody.innerHTML = data.html; // Загружаем HTML содержимое
-        })
-        .catch(error => {
-            modalBody.innerHTML = "Ошибка загрузки данных.";
-        });
-}
+        fetch(`/news_detail/${newsId}/`) 
+            .then(response => response.json())
+            .then(data => {
+                modalBody.innerHTML = data.html; 
+            })
+            .catch(error => {
+                modalBody.innerHTML = "Ошибка загрузки данных.";
+            });
+    }
 
-function closeModal() {
-    const modal = document.getElementById('news-modal');
-    modal.style.display = "none";
-    document.body.classList.remove("modal-open");
-}
+    function closeModal() {
+        document.getElementById('modal').style.display = "none";
+        document.getElementById('lesson-modal').style.display = "none";
+        document.getElementById('news-modal').style.display = "none"; 
+        document.body.classList.remove("modal-open");
+    }
 
-
-</script>
-
-
-    <script>
-      // Open subgrade modal
-        function openSubgradeModal(gradeId, event) {
-            event.preventDefault();
-            const modal = document.getElementById('modal');
-            const modalBody = document.getElementById('modal-body');
-
-            // Show modal
-            modal.style.display = "block";
-            document.body.classList.add("modal-open");
-
-            // Fetch subgrade list
-            fetch(`/subgrade_list/${gradeId}/`)
-                .then(response => response.text())
-                .then(html => {
-                    modalBody.innerHTML = html;
-                })
-                .catch(error => {
-                    modalBody.innerHTML = "Ошибка загрузки данных.";
-                });
-        }
-
-        // Open lesson modal
-        function openLessonModal(subgradeId, event) {
-            event.preventDefault();
-            const lessonModal = document.getElementById('lesson-modal');
-            const lessonModalBody = document.getElementById('lesson-modal-body');
-
-            // Show modal
-            lessonModal.style.display = "block";
-            document.body.classList.add("modal-open");
-
-            // Fetch lesson schedule
-            fetch(`/lesson_schedule/${subgradeId}/`)
-                .then(response => response.text())
-                .then(html => {
-                    lessonModalBody.innerHTML = html;
-                })
-                .catch(error => {
-                    lessonModalBody.innerHTML = "Ошибка загрузки данных.";
-                });
-        }
-
-        // Close modals
-        function closeModal() {
-            document.getElementById('modal').style.display = "none";
-            document.getElementById('lesson-modal').style.display = "none";
-            document.getElementById('news-modal').style.display = "none"; // Добавляем закрытие #news-modal
+    function outsideClickClose(event, modalId) {
+        const modal = document.getElementById(modalId);
+        if (event.target === modal) {
+            modal.style.display = "none";
             document.body.classList.remove("modal-open");
         }
+    }
 
+    function openSubgradeModal(gradeId, event) {
+        event.preventDefault();
+        const modal = document.getElementById('modal');
+        const modalBody = document.getElementById('modal-body');
 
-    </script>
+        modal.style.display = "block";
+        document.body.classList.add("modal-open");
 
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const slides = document.querySelectorAll('.slide');
-        let currentIndex = 0;
-
-        function showSlide(index) {
-            slides.forEach((slide, i) => {
-                slide.style.display = i === index ? 'block' : 'none';
+        fetch(`/subgrade_list/${gradeId}/`)
+            .then(response => response.text())
+            .then(html => {
+                modalBody.innerHTML = html;
+            })
+            .catch(error => {
+                modalBody.innerHTML = "Ошибка загрузки данных.";
             });
-        }
+    }
 
-        function nextSlide() {
-            currentIndex = (currentIndex + 1) % slides.length;
-            showSlide(currentIndex);
-        }
+    function openLessonModal(subgradeId, event) {
+        event.preventDefault();
+        const lessonModal = document.getElementById('lesson-modal');
+        const lessonModalBody = document.getElementById('lesson-modal-body');
 
-        // Show first slide immediately
-        showSlide(0);
+        lessonModal.style.display = "block";
+        document.body.classList.add("modal-open");
 
-        // Start slideshow if there are multiple slides
-        if (slides.length > 1) {
-            setInterval(nextSlide, 5000);
-        }
-    });
+        fetch(`/lesson_schedule/${subgradeId}/`)
+            .then(response => response.text())
+            .then(html => {
+                lessonModalBody.innerHTML = html;
+            })
+            .catch(error => {
+                lessonModalBody.innerHTML = "Ошибка загрузки данных.";
+            });
+    }
 </script>
+
 </body>
 </html>
