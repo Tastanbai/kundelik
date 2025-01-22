@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Админ-панель</title>
+  <style>
+    /* Основной стиль для заголовка */
+    h1 {
+        font-family: Arial, sans-serif;
+        font-size: 2.5rem;
+        color: #333;
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    /* Стили для списка навигации */
+    ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 20px auto;
+        max-width: 600px;
+    }
+
+    li {
+        margin: 10px 0;
+        font-size: 1.5rem; /* Увеличенный размер текста */
+        border: 2px solid #007BFF; /* Граница вокруг элемента */
+        border-radius: 10px; /* Скруглённые углы */
+        background-color: #ffffff; /* Белый фон */
+        overflow: hidden; /* Чтобы ссылка не выходила за рамки */
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    li:hover {
+        background-color: #007BFF; /* Смена фона при наведении */
+        color: #ffffff; /* Цвет текста при наведении */
+    }
+
+    /* Стили для ссылок */
+    a {
+        text-decoration: none;
+        font-family: Arial, sans-serif;
+        color: inherit; /* Наследование цвета от li */
+        display: flex; /* Гибкий контейнер */
+        align-items: center; /* Центрирование текста по вертикали */
+        justify-content: center; /* Центрирование текста по горизонтали */
+        height: 100%; /* Ссылка занимает всю высоту li */
+        width: 100%; /* Ссылка занимает всю ширину li */
+        padding: 15px; /* Внутренний отступ */
+        box-sizing: border-box; /* Учет padding в размерах элемента */
+    }
+
+    /* Стили для кнопки "Назад" */
+    .back-button {
+        display: block;
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin: 20px auto;
+        padding: 15px 20px;
+        border: 2px solid #007BFF;
+        border-radius: 10px;
+        text-decoration: none;
+        color: #007BFF;
+        background-color: #ffffff;
+        transition: background-color 0.3s ease, color 0.3s ease;
+        width: 150px;
+    }
+
+    .back-button:hover {
+        background-color: #007BFF;
+        color: #ffffff;
+    }
+
+    /* Общие стили для панели */
+    body {
+        background-color: #f8f9fa;
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+    }
+  </style>
+</head>
+<body>
+  <h1>Админ-панель</h1>
+  <ul>
+    <li><a href="{% url 'manage_subjects' %}">Управление предметами</a></li>
+    <li><a href="{% url 'manage_subgrades' %}">Управление подклассами</a></li>
+    <li><a href="{% url 'manage_lessons' %}">Управление уроками</a></li>
+    <li><a href="{% url 'upload' %}" class="btn btn-primary">Загрузить презентацию</a></li>
+    <li><a href="{% url 'manage_news' %}">Управление Новостей</a></li>
+  </ul>
+  <a href="{% url 'grade_list' %}" class="back-button">Назад</a>
+</body>
+</html>
