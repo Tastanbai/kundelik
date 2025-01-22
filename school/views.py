@@ -1,5 +1,3 @@
-# school/views.py
-
 import os
 from django.dispatch import receiver
 from django.shortcuts import render, redirect, get_object_or_404
@@ -8,12 +6,9 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.contrib import messages
-from pptx import Presentation
-
 from mysite import settings
-
-from .forms import PowerPointUploadForm, UserRegistrationForm, LoginForm
-from .models import PowerPointSlide, SchoolUser, School, Grade, SubGrade, Subject, Lesson
+from .forms import UserRegistrationForm, LoginForm
+from .models import SchoolUser, School, Grade, SubGrade, Subject, Lesson
 
 DAYS_OF_WEEK = [
     (1, 'Понедельник'),
@@ -25,8 +20,6 @@ DAYS_OF_WEEK = [
 ]
 
 # Регистрация пользователя
-# views.py
-# views.py
 def user_register(request):
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST)
@@ -79,16 +72,7 @@ def user_logout_view(request):
     messages.success(request, "Вы успешно вышли из системы.")
     return redirect('user_login')
 
-# Главная страница - список классов
 
-# # views.py
-# @login_required
-# def grade_list(request):
-#     user_school = request.user.school_user.school
-#     grades = Grade.objects.filter(school=user_school).order_by('number')
-#     return render(request, 'school/grade_list.html', {'grades': grades})
-
-# Список подклассов для выбранного класса
 @login_required
 def subgrade_list(request, grade_id):
     user_school = request.user.school_user.school
@@ -251,7 +235,6 @@ def manage_lessons(request):
         'days': DAYS_OF_WEEK,
     })
 
-# Добавление урока (опционально)
 @login_required
 def add_lesson(request):
     user_school = request.user.school_user.school
@@ -301,197 +284,6 @@ def delete_lesson(request, lesson_id):
     lesson.delete()
     messages.success(request, f"Урок '{lesson.subject.name}' удалён.")
     return redirect('manage_lessons')
-
-
-
-# @login_required
-# def upload(request):
-#     if request.method == 'POST':
-#         form = PowerPointUploadForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             try:
-#                 uploaded_file = request.FILES['file']
-#                 max_file_size = 10 * 1024 * 1024  # 10 МБ
-                
-#                 # Проверка размера файла
-#                 if uploaded_file.size > max_file_size:
-#                     messages.error(request, 'Файл слишком большой. Максимальный размер — 10 МБ.')
-#                     return redirect('upload')
-
-#                 title = form.cleaned_data['title']
-                
-#                 # Create temp and slides directories
-#                 temp_dir = os.path.join(settings.MEDIA_ROOT, 'temp')
-#                 slides_dir = os.path.join(settings.MEDIA_ROOT, 'slides')
-#                 os.makedirs(temp_dir, exist_ok=True)
-#                 os.makedirs(slides_dir, exist_ok=True)
-                
-#                 # Save uploaded PPTX
-#                 pptx_path = os.path.join(temp_dir, uploaded_file.name)
-#                 pdf_path = os.path.join(temp_dir, 'presentation.pdf')
-                
-#                 with open(pptx_path, 'wb+') as destination:
-#                     for chunk in uploaded_file.chunks():
-#                         destination.write(chunk)
-                
-#                 try:
-#                     # Convert PPTX to PDF
-#                     pythoncom.CoInitialize()
-#                     powerpoint = win32com.client.Dispatch("Powerpoint.Application")
-#                     deck = powerpoint.Presentations.Open(pptx_path)
-#                     deck.SaveAs(pdf_path, 32)  # 32 is the PDF format code
-#                     deck.Close()
-#                     powerpoint.Quit()
-#                 finally:
-#                     pythoncom.CoUninitialize()
-                
-#                 # Convert PDF to images
-#                 images = convert_from_path(pdf_path)
-                
-#                 # Delete existing slides
-#                 PowerPointSlide.objects.all().delete()
-                
-#                 # Save each image
-#                 for i, image in enumerate(images, start=1):
-#                     image_path = f'slides/slide_{i}.jpg'
-#                     full_image_path = os.path.join(settings.MEDIA_ROOT, image_path)
-                    
-#                     # Save with higher quality
-#                     image.save(full_image_path, 'JPEG', quality=95)
-                    
-#                     # Create database entry
-#                     PowerPointSlide.objects.create(
-#                         title=f"{title} - Слайд {i}",
-#                         slide=image_path,
-#                         order=i-1
-#                     )
-                
-#                 # Cleanup temporary files
-#                 if os.path.exists(pptx_path):
-#                     os.remove(pptx_path)
-#                 if os.path.exists(pdf_path):
-#                     os.remove(pdf_path)
-                    
-#                 messages.success(request, 'Презентация успешно загружена')
-#                 return redirect('grade_list')
-                
-#             except Exception as e:
-#                 messages.error(request, f'Ошибка при обработке презентации: {str(e)}')
-#                 return redirect('upload')
-#     else:
-#         form = PowerPointUploadForm()
-    
-#     return render(request, 'school/admin/upload.html', {'form': form})
-
-# @login_required
-# def grade_list(request):
-#     user_school = request.user.school_user.school
-#     grades = Grade.objects.filter(school=user_school).order_by('number')
-#     slides = PowerPointSlide.objects.all().order_by('order')
-#     return render(request, 'school/grade_list.html', {
-#         'grades': grades,
-#         'slides': slides
-#     })
-
-# views.py
-
-# from django.shortcuts import render, redirect
-# from django.contrib import messages
-# from django.contrib.auth.decorators import login_required
-# import os
-# from pdf2image import convert_from_path
-# from pptx import Presentation
-# import win32com.client
-# import pythoncom
-# import tempfile
-
-# @login_required
-# def upload(request):
-#     if request.method == 'POST':
-#         form = PowerPointUploadForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             try:
-#                 uploaded_file = request.FILES['file']
-#                 max_file_size = 10 * 1024 * 1024  # 10 МБ
-                
-#                 if uploaded_file.size > max_file_size:
-#                     messages.error(request, 'Файл слишком большой. Максимальный размер — 10 МБ.')
-#                     return redirect('upload')
-
-#                 title = form.cleaned_data['title']
-#                 user_school = request.user.school_user.school
-                
-#                 # Create directories if they don't exist
-#                 school_slides_dir = os.path.join(settings.MEDIA_ROOT, 'slides', str(user_school.id))
-#                 temp_dir = os.path.join(settings.MEDIA_ROOT, 'temp')
-#                 os.makedirs(school_slides_dir, exist_ok=True)
-#                 os.makedirs(temp_dir, exist_ok=True)
-                
-#                 pptx_path = os.path.join(temp_dir, uploaded_file.name)
-#                 pdf_path = os.path.join(temp_dir, f'presentation_{user_school.id}.pdf')
-                
-#                 with open(pptx_path, 'wb+') as destination:
-#                     for chunk in uploaded_file.chunks():
-#                         destination.write(chunk)
-                
-#                 try:
-#                     pythoncom.CoInitialize()
-#                     powerpoint = win32com.client.Dispatch("Powerpoint.Application")
-#                     deck = powerpoint.Presentations.Open(pptx_path)
-#                     deck.SaveAs(pdf_path, 32)
-#                     deck.Close()
-#                     powerpoint.Quit()
-#                 finally:
-#                     pythoncom.CoUninitialize()
-                
-#                 images = convert_from_path(pdf_path)
-                
-#                 # Delete existing slides for this school only
-#                 PowerPointSlide.objects.filter(school=user_school).delete()
-                
-#                 # Save slides in school-specific directory
-#                 for i, image in enumerate(images, start=1):
-#                     image_path = f'slides/{user_school.id}/slide_{i}.jpg'
-#                     full_image_path = os.path.join(settings.MEDIA_ROOT, image_path)
-                    
-#                     image.save(full_image_path, 'JPEG', quality=95)
-                    
-#                     PowerPointSlide.objects.create(
-#                         title=f"{title} - Слайд {i}",
-#                         slide=image_path,
-#                         order=i-1,
-#                         school=user_school
-#                     )
-                
-#                 # Cleanup temporary files
-#                 if os.path.exists(pptx_path):
-#                     os.remove(pptx_path)
-#                 if os.path.exists(pdf_path):
-#                     os.remove(pdf_path)
-                    
-#                 messages.success(request, 'Презентация успешно загружена')
-#                 return redirect('grade_list')
-                
-#             except Exception as e:
-#                 messages.error(request, f'Ошибка при обработке презентации: {str(e)}')
-#                 return redirect('upload')
-#     else:
-#         form = PowerPointUploadForm()
-    
-#     return render(request, 'school/admin/upload.html', {'form': form})
-
-@login_required
-def grade_list(request):
-    user_school = request.user.school_user.school
-    grades = Grade.objects.filter(school=user_school).order_by('number')
-    # Only get slides for the current user's school
-    slides = PowerPointSlide.objects.filter(school=user_school).order_by('order')
-    news = News.objects.filter(school=user_school).order_by('-created_at')
-    return render(request, 'school/grade_list.html', {
-        'grades': grades,
-        'slides': slides,
-        'news': news,
-    })
 
 from .models import News
 from .forms import NewsForm
@@ -554,131 +346,36 @@ def news_detail(request, news_id):
         return JsonResponse({'html': html})
 
 
-
-
-# views.py
-from django.shortcuts import render, redirect
-from django.contrib import messages
-from django.contrib.auth.decorators import login_required
-import os
-import logging
-from PIL import Image
-from pptx import Presentation
-from django.conf import settings
-
-logger = logging.getLogger(__name__)
-
-import os
-from django.shortcuts import render, redirect
-from django.contrib import messages
-from django.contrib.auth.decorators import login_required
-import logging
-import subprocess
-from pdf2image import convert_from_path
-from django.conf import settings
-
-logger = logging.getLogger(__name__)
-
-@login_required
-def upload(request):
-    if request.method == 'POST':
-        form = PowerPointUploadForm(request.POST, request.FILES)
-        if form.is_valid():
-            try:
-                uploaded_file = request.FILES['file']
-                title = form.cleaned_data['title']
-                user_school = request.user.school_user.school
-
-                logger.info(f"Processing file: {uploaded_file.name}, size: {uploaded_file.size}")
-
-                # Create school-specific directory
-                school_slides_dir = os.path.join(settings.MEDIA_ROOT, 'slides', str(user_school.id))
-                os.makedirs(school_slides_dir, exist_ok=True)
-                
-                # Save temporary PPTX file
-                temp_pptx_path = os.path.join(school_slides_dir, 'temp.pptx')
-
-                with open(temp_pptx_path, 'wb+') as destination:
-                    for chunk in uploaded_file.chunks():
-                        destination.write(chunk)
-
-                # Delete existing slides
-                existing_slides = PowerPointSlide.objects.filter(school=user_school)
-                for slide in existing_slides:
-                    if slide.slide:
-                        try:
-                            full_path = os.path.join(settings.MEDIA_ROOT, slide.slide.name)
-                            if os.path.exists(full_path):
-                                os.remove(full_path)
-                        except Exception as e:
-                            logger.error(f"Error deleting file {slide.slide.name}: {e}")
-                existing_slides.delete()
-
-                try:
-                    # Open the presentation
-                    prs = Presentation(temp_pptx_path)
-                    
-                    # Process each slide
-                    for index, slide in enumerate(prs.slides, start=1):
-                        # Create slide image name and paths
-                        image_name = f'slide_{index}.jpg'
-                        relative_path = f'slides/{user_school.id}/{image_name}'
-                        full_path = os.path.join(settings.MEDIA_ROOT, 'slides', str(user_school.id), image_name)
-                        
-                        # Extract shapes from slide
-                        image = Image.new('RGB', (1920, 1080), 'white')  # Create blank image
-                        
-                        # Save the slide
-                        image.save(full_path, 'JPEG', quality=95)
-                        
-                        # Create database entry
-                        PowerPointSlide.objects.create(
-                            title=f"{title} - Slide {index}",
-                            slide=relative_path,
-                            order=index-1,
-                            school=user_school
-                        )
-                        logger.info(f"Saved slide {index} to {relative_path}")
-
-                    messages.success(request, f'Presentation successfully uploaded ({len(prs.slides)} slides)')
-
-                except Exception as e:
-                    logger.error(f"Conversion error: {str(e)}", exc_info=True)
-                    raise
-
-                finally:
-                    # Clean up temporary files
-                    try:
-                        if os.path.exists(temp_pptx_path):
-                            os.remove(temp_pptx_path)
-                    except Exception as e:
-                        logger.error(f"Error deleting temporary file {temp_pptx_path}: {str(e)}")
-
-                return redirect('grade_list')
-
-            except Exception as e:
-                logger.error(f"Upload error: {str(e)}", exc_info=True)
-                messages.error(request, "An error occurred during presentation upload. Please try again.")
-                return redirect('upload')
-    else:
-        form = PowerPointUploadForm()
-
-    return render(request, 'school/admin/upload.html', {'form': form})
-
 @login_required
 def grade_list(request):
     user_school = request.user.school_user.school
     grades = Grade.objects.filter(school=user_school).order_by('number')
-    slides = PowerPointSlide.objects.filter(school=user_school).order_by('order')
+    slides = Slide.objects.filter(school=user_school).order_by('title')
     news = News.objects.filter(school=user_school).order_by('-created_at')
     
-    # Add debug logging
-    logger.info(f"Retrieved {slides.count()} slides for school {user_school.id}")
-    for slide in slides:
-        logger.info(f"Slide {slide.order}: {slide.slide.url if slide.slide else 'No image'}")
-
     return render(request, 'school/grade_list.html', {
         'grades': grades,
         'slides': slides,
         'news': news,
     })
+
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from .models import Slide, SchoolUser
+from .forms import SlideForm
+
+@login_required
+def upload(request):
+    school_user = request.user.school_user
+   
+    if request.method == 'POST':
+        form = SlideForm(request.POST, request.FILES)
+        if form.is_valid():
+            slide = form.save(commit=False)
+            slide.school = school_user.school  # Привязка слайда к школе
+            slide.save()
+            return redirect('grade_list')  # Перенаправление на страницу со списком слайдов
+    else:
+        form = SlideForm()
+    
+    return render(request, 'school/admin//upload.html', {'form': form})

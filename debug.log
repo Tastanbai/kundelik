@@ -1,128 +1,144 @@
 Watching for file changes with StatReloader
-Retrieved 0 slides for school 4
-Processing file: Презентация_по_окружающему_миру_про_корабль__Гото_предистинация__3LWWLiR_Fp4oOM4.pptx, size: 208096
-Created directory: C:\Users\Asus\mysite\media\slides\4
-Loaded presentation with 5 slides
-Deleted existing slides
-Error processing slide 1: 
-Error processing slide 2: 
-Error processing slide 3: 
-Error processing slide 4: 
-Error processing slide 5: 
-Retrieved 0 slides for school 4
-C:\Users\Asus\mysite\school\views.py changed, reloading.
 Watching for file changes with StatReloader
-Retrieved 0 slides for school 4
-Processing file: Презентация_по_окружающему_миру_про_корабль__Гото_предистинация__3LWWLiR_Fp4oOM4.pptx, size: 208096
-Created directory: C:\Users\Asus\mysite\media\slides\4
-Loaded presentation with 5 slides
-Deleted existing slides
-Saved slide 1 to slides/4/slide_1.jpg
-Saved slide 2 to slides/4/slide_2.jpg
-Saved slide 3 to slides/4/slide_3.jpg
-Saved slide 4 to slides/4/slide_4.jpg
-Saved slide 5 to slides/4/slide_5.jpg
-Retrieved 5 slides for school 4
-Slide 0: /media/slides/4/slide_1.jpg
-Slide 1: /media/slides/4/slide_2.jpg
-Slide 2: /media/slides/4/slide_3.jpg
-Slide 3: /media/slides/4/slide_4.jpg
-Slide 4: /media/slides/4/slide_5.jpg
-Retrieved 5 slides for school 4
-Slide 0: /media/slides/4/slide_1.jpg
-Slide 1: /media/slides/4/slide_2.jpg
-Slide 2: /media/slides/4/slide_3.jpg
-Slide 3: /media/slides/4/slide_4.jpg
-Slide 4: /media/slides/4/slide_5.jpg
-C:\Users\Asus\mysite\school\views.py changed, reloading.
+C:\Users\Asus\Desktop\Project\mysite\school\views.py changed, reloading.
 Watching for file changes with StatReloader
-Retrieved 5 slides for school 4
-Slide 0: /media/slides/4/slide_1.jpg
-Slide 1: /media/slides/4/slide_2.jpg
-Slide 2: /media/slides/4/slide_3.jpg
-Slide 3: /media/slides/4/slide_4.jpg
-Slide 4: /media/slides/4/slide_5.jpg
-Processing file: Презентация_по_окружающему_миру_про_корабль__Гото_предистинация__3LWWLiR_Fp4oOM4.pptx, size: 208096
-Error during PDF conversion: [WinError 2] Не удается найти указанный файл
-Upload error: [WinError 2] Не удается найти указанный файл
-Traceback (most recent call last):
-  File "C:\Users\Asus\mysite\school\views.py", line 609, in upload
-    subprocess.run([
-  File "C:\Users\Asus\AppData\Local\Programs\Python\Python312\Lib\subprocess.py", line 548, in run
-    with Popen(*popenargs, **kwargs) as process:
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\Asus\AppData\Local\Programs\Python\Python312\Lib\subprocess.py", line 1026, in __init__
-    self._execute_child(args, executable, preexec_fn, close_fds,
-  File "C:\Users\Asus\AppData\Local\Programs\Python\Python312\Lib\subprocess.py", line 1538, in _execute_child
-    hp, ht, pid, tid = _winapi.CreateProcess(executable, args,
-                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-FileNotFoundError: [WinError 2] Не удается найти указанный файл
-C:\Users\Asus\mysite\school\views.py changed, reloading.
+C:\Users\Asus\Desktop\Project\mysite\school\views.py changed, reloading.
 Watching for file changes with StatReloader
-Retrieved 0 slides for school 4
-Обработка файла: Презентация_по_окружающему_миру_про_корабль__Гото_предистинация__3LWWLiR_Fp4oOM4.pptx, размер: 208096
-Ошибка конвертации: [WinError 2] Не удается найти указанный файл
-Traceback (most recent call last):
-  File "C:\Users\Asus\mysite\school\views.py", line 628, in upload
-    process = subprocess.run(
-              ^^^^^^^^^^^^^^^
-  File "C:\Users\Asus\AppData\Local\Programs\Python\Python312\Lib\subprocess.py", line 548, in run
-    with Popen(*popenargs, **kwargs) as process:
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\Asus\AppData\Local\Programs\Python\Python312\Lib\subprocess.py", line 1026, in __init__
-    self._execute_child(args, executable, preexec_fn, close_fds,
-  File "C:\Users\Asus\AppData\Local\Programs\Python\Python312\Lib\subprocess.py", line 1538, in _execute_child
-    hp, ht, pid, tid = _winapi.CreateProcess(executable, args,
-                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-FileNotFoundError: [WinError 2] Не удается найти указанный файл
-Ошибка загрузки: [WinError 2] Не удается найти указанный файл
-Traceback (most recent call last):
-  File "C:\Users\Asus\mysite\school\views.py", line 628, in upload
-    process = subprocess.run(
-              ^^^^^^^^^^^^^^^
-  File "C:\Users\Asus\AppData\Local\Programs\Python\Python312\Lib\subprocess.py", line 548, in run
-    with Popen(*popenargs, **kwargs) as process:
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\Asus\AppData\Local\Programs\Python\Python312\Lib\subprocess.py", line 1026, in __init__
-    self._execute_child(args, executable, preexec_fn, close_fds,
-  File "C:\Users\Asus\AppData\Local\Programs\Python\Python312\Lib\subprocess.py", line 1538, in _execute_child
-    hp, ht, pid, tid = _winapi.CreateProcess(executable, args,
-                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-FileNotFoundError: [WinError 2] Не удается найти указанный файл
-C:\Users\Asus\mysite\school\views.py changed, reloading.
+C:\Users\Asus\Desktop\Project\mysite\school\views.py changed, reloading.
 Watching for file changes with StatReloader
-Retrieved 0 slides for school 4
-Retrieved 0 slides for school 4
-Processing file: Презентация_по_окружающему_миру_про_корабль__Гото_предистинация__3LWWLiR_Fp4oOM4.pptx, size: 208096
-Conversion error: PowerPoint conversion failed. Please ensure LibreOffice is installed. Error: [WinError 2] Не удается найти указанный файл
-Traceback (most recent call last):
-  File "C:\Users\Asus\mysite\school\views.py", line 655, in upload
-    raise Exception(f"PowerPoint conversion failed. Please ensure LibreOffice is installed. Error: {conversion_error}")
-Exception: PowerPoint conversion failed. Please ensure LibreOffice is installed. Error: [WinError 2] Не удается найти указанный файл
-Upload error: PowerPoint conversion failed. Please ensure LibreOffice is installed. Error: [WinError 2] Не удается найти указанный файл
-Traceback (most recent call last):
-  File "C:\Users\Asus\mysite\school\views.py", line 655, in upload
-    raise Exception(f"PowerPoint conversion failed. Please ensure LibreOffice is installed. Error: {conversion_error}")
-Exception: PowerPoint conversion failed. Please ensure LibreOffice is installed. Error: [WinError 2] Не удается найти указанный файл
-Retrieved 0 slides for school 4
-C:\Users\Asus\mysite\school\views.py changed, reloading.
+C:\Users\Asus\Desktop\Project\mysite\school\views.py changed, reloading.
 Watching for file changes with StatReloader
-Retrieved 0 slides for school 4
-Processing file: Презентация_по_окружающему_миру_про_корабль__Гото_предистинация__3LWWLiR_Fp4oOM4.pptx, size: 208096
-Saved slide 1 to slides/4/slide_1.jpg
-Saved slide 2 to slides/4/slide_2.jpg
-Saved slide 3 to slides/4/slide_3.jpg
-Saved slide 4 to slides/4/slide_4.jpg
-Saved slide 5 to slides/4/slide_5.jpg
-Retrieved 5 slides for school 4
-Slide 0: /media/slides/4/slide_1.jpg
-Slide 1: /media/slides/4/slide_2.jpg
-Slide 2: /media/slides/4/slide_3.jpg
-Slide 3: /media/slides/4/slide_4.jpg
-Slide 4: /media/slides/4/slide_5.jpg
-Retrieved 5 slides for school 4
-Slide 0: /media/slides/4/slide_1.jpg
-Slide 1: /media/slides/4/slide_2.jpg
-Slide 2: /media/slides/4/slide_3.jpg
-Slide 3: /media/slides/4/slide_4.jpg
-Slide 4: /media/slides/4/slide_5.jpg
+C:\Users\Asus\Desktop\Project\mysite\school\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\Asus\Desktop\Project\mysite\school\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\Asus\Desktop\Project\mysite\school\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\Asus\Desktop\Project\mysite\school\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\Asus\Desktop\Project\mysite\school\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\Asus\Desktop\Project\mysite\school\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\Asus\Desktop\Project\mysite\school\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\Asus\Desktop\Project\mysite\school\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\Asus\Desktop\Project\mysite\school\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\Asus\Desktop\Project\mysite\school\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\Asus\Desktop\Project\mysite\school\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\Asus\Desktop\Project\mysite\school\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\Asus\Desktop\Project\mysite\school\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\Asus\Desktop\Project\mysite\school\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\Asus\Desktop\Project\mysite\school\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\Asus\Desktop\Project\mysite\school\views.py changed, reloading.
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python39\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python39\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python39\lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Asus\Desktop\Project\mysite\school\views.py", line 353, in grade_list
+    slides = Slide.objects.filter(school=user_school).order_by('order')
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\query.py", line 1659, in order_by
+    obj.query.add_ordering(*field_names)
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 2222, in add_ordering
+    self.names_to_path(item.split(LOOKUP_SEP), self.model._meta)
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1725, in names_to_path
+    raise FieldError(
+django.core.exceptions.FieldError: Cannot resolve keyword 'order' into field. Choices are: id, pdf_file, school, school_id, title
+C:\Users\Asus\Desktop\Project\mysite\school\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\Asus\Desktop\Project\mysite\school\views.py changed, reloading.
+Watching for file changes with StatReloader
+Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\backends\utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\backends\mysql\base.py", line 75, in execute
+    return self.cursor.execute(query, args)
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python39\lib\site-packages\MySQLdb\cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python39\lib\site-packages\MySQLdb\cursors.py", line 330, in _query
+    db.query(q)
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python39\lib\site-packages\MySQLdb\connections.py", line 280, in query
+    _mysql.connection.query(self, query)
+MySQLdb.ProgrammingError: (1146, "Table 'kundelik.school_slide' doesn't exist")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python39\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python39\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python39\lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Asus\Desktop\Project\mysite\school\views.py", line 356, in grade_list
+    return render(request, 'school/grade_list.html', {
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python39\lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python39\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python39\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python39\lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python39\lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python39\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python39\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python39\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python39\lib\site-packages\django\template\defaulttags.py", line 320, in render
+    if match:
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\query.py", line 412, in __bool__
+    self._fetch_all()
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\query.py", line 91, in __iter__
+    results = compiler.execute_sql(
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\compiler.py", line 1562, in execute_sql
+    cursor.execute(sql, params)
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\backends\utils.py", line 102, in execute
+    return super().execute(sql, params)
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\backends\utils.py", line 67, in execute
+    return self._execute_with_wrappers(
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\backends\utils.py", line 80, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\backends\utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\backends\utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\backends\mysql\base.py", line 75, in execute
+    return self.cursor.execute(query, args)
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python39\lib\site-packages\MySQLdb\cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python39\lib\site-packages\MySQLdb\cursors.py", line 330, in _query
+    db.query(q)
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python39\lib\site-packages\MySQLdb\connections.py", line 280, in query
+    _mysql.connection.query(self, query)
+django.db.utils.ProgrammingError: (1146, "Table 'kundelik.school_slide' doesn't exist")
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+C:\Users\Asus\Desktop\Project\mysite\school\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\Asus\Desktop\Project\mysite\school\views.py changed, reloading.
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+Not Found: /docs

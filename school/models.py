@@ -81,26 +81,6 @@ class Lesson(models.Model):
         return f"{self.subgrade} - {self.subject} ({self.get_day_of_week_display()})"
 
 
-# models.py
-class PowerPointSlide(models.Model):
-    title = models.CharField(max_length=255)
-    slide = models.ImageField(upload_to='slides/')
-    order = models.IntegerField()
-    created_at = models.DateTimeField(auto_now_add=True)
-    school = models.ForeignKey(School, on_delete=models.CASCADE)
-
-    class Meta:
-        ordering = ['order']
-
-    def delete(self, *args, **kwargs):
-        # Удаляем файл при удалении записи
-        if self.slide:
-            storage = self.slide.storage
-            if storage.exists(self.slide.name):
-                storage.delete(self.slide.name)
-        super().delete(*args, **kwargs)
-
-
 class News(models.Model):
     school = models.ForeignKey(School, on_delete=models.CASCADE, related_name='news')
     title = models.CharField(max_length=255)
@@ -111,6 +91,14 @@ class News(models.Model):
     class Meta:
         verbose_name = "Новость"
         verbose_name_plural = "Новости"
+
+    def __str__(self):
+        return self.title
+
+class Slide(models.Model):
+    school = models.ForeignKey(School, on_delete=models.CASCADE, related_name='slides')
+    title = models.CharField(max_length=255, verbose_name="Название презентации")
+    pdf_file = models.FileField(upload_to='slides/', verbose_name="PDF файл")
 
     def __str__(self):
         return self.title
