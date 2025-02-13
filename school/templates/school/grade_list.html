@@ -2,484 +2,452 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <title>Школьный Дневник</title>
-    <link rel="icon" type="image/x-icon" href="{% static 'img/favicon.ico' %}">
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: sans-serif;
-            background: #e6ffe6; 
-            color: #006400; /* Тёмно-зелёный цвет текста */
-            display: flex;
-            flex-direction: column; /* Вертикальная структура */
-            height: 100vh; /* Высота на весь экран */
-            overflow: hidden;
-        }
+  <meta charset="UTF-8">
+  <title>Школьный Дневник</title>
+  <link rel="icon" type="image/x-icon" href="{% static 'img/favicon.ico' %}">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: sans-serif;
+      background: #e6ffe6;
+      color: #006400; /* Тёмно-зелёный цвет текста */
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow: hidden;
+    }
+    
+    /* Верхний заголовок */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #e6ffe6;
+      padding: 10px 20px;
+      border-bottom: 1px solid #d4d4d4;
+      font-size: 20px;
+    }
+    
+    .header .welcome {
+      color: #333;
+      font-weight: bold;
+    }
+    
+    .header .admin-panel {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      color: #007BFF;
+      font-weight: bold;
+      font-size: 16px;
+    }
+    
+    .header .admin-panel img {
+      width: 30px;
+      height: 30px;
+      margin-left: 10px;
+      transition: transform 0.3s ease;
+    }
+    
+    .header .admin-panel img:hover {
+      transform: scale(1.2);
+    }
+    
+    .main {
+      display: flex;
+      flex: 1;
+      padding: 20px;
+    }
+    
+    /* Левая панель */
+    .left-panel {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: #ffffff;
+      border: 2px solid #d4d4d4;
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      height: 95%;
+    }
+    
+    .left-panel h2 {
+      font-size: 24px;
+      color: #333;
+    }
+    
+    #pdf-viewer-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+    }
+    
+    #pdf-canvas {
+      display: block;
+      max-width: 100%;
+      height: auto;
+    }
+    
+    /* Правая панель для новостей и классов */
+    .right-panel {
+      flex: 1;
+      background: #e6ffe6;
+      display: flex;
+      flex-direction: column;
+      padding-left: 20px;
+      overflow-y: auto;
+      position: relative; /* Для позиционирования модальных окон внутри */
+    }
+    
+    .news-section {
+        flex: 1;
+        margin-bottom: 20px;
+        overflow-y: auto;
+        border-radius: 25px; /* Оставляем скругление углов */
+        padding: 20px;
+        background: #f9f9f9;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        border: none; /* Убираем границу */
+      }
 
-        /* Верхний заголовок */
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: #e6ffe6; 
-            padding: 10px 20px;
-            border-bottom: 1px solid #d4d4d4; 
-            font-size: 20px;
-        }
+    .news-section h2 {
+      font-size: 24px;
+      margin-bottom: 10px;
+      color: #333;
+    }
+    
+    .news-section:hover {
+      transform: scale(1.02);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    
+    .news-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    
+    .news-item {
+  padding: 10px;
+  background: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.2s ease;
+  cursor: pointer;
+  border: none; /* Убираем границу */
+}
+    
+    .news-item:hover {
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+    }
+    
+    .news-content img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
+    }
+    
+    /* Секция классов (расписание школы) */
+    .class-section {
+      flex: 1;
+      overflow-y: auto;
+      border: 1px solid #d4d4d4;
+      border-radius: 25px;
+      padding: 20px;
+      background: #f9f9f9;
+      position: relative;
+    }
+    
+    .class-section h2 {
+      font-size: 24px;
+      margin-bottom: 25px;
+      color: #333;
+      text-align: center;
+    }
+    
+    ul {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    li {
+      border-radius: 15px;
+      width: 120px;
+      height: 120px;
+      background: rgb(123, 209, 53);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+    
+    li:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    li a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      text-decoration: none;
+      color: white;
+      font-weight: bold;
+      font-size: 16px;
+      overflow: hidden;
+    }
+    
+    /* Модальные окна (панельные) внутри right-panel */
+    .panel-modal {
+      display: none;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80%;
+      z-index: 10;
+    }
+    
+    .panel-modal .modal-content {
+      background-color: #fefefe;
+      padding: 20px;
+      border: 1px solid #d4d4d4;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      position: relative;
+    }
+    
+    .panel-modal .close {
+  color: #aaa;
+  float: right;
+  font-size: 35px;
+  font-weight: bold;
+  cursor: pointer;
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  z-index: 11;
+}
 
-        .header .welcome {
-            color: #333;
-            font-weight: bold;
-        }
-
-        .header .admin-panel {
-            display: flex;
-            align-items: center;
-            text-decoration: none;
-            color: #007BFF;
-            font-weight: bold;
-            font-size: 16px;
-        }
-
-        .header .admin-panel img {
-            width: 30px;
-            height: 30px;
-            margin-left: 10px;
-            transition: transform 0.3s ease;
-        }
-
-        .header .admin-panel img:hover {
-            transform: scale(1.2);
-        }
-        .main {
-            display: flex;
-            flex: 1;
-            padding: 20px;
-        }
-
-        /* Левая панель */
-        .left-panel {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background: #ffffff;
-            border: 2px solid #d4d4d4;
-            border-radius: 15px;
-            padding: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            height: 95%;
-        }
-
-        .left-panel h2 {
-            font-size: 24px;
-            color: #333;
-        }
-
-        #pdf-viewer-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100%;
-        }
-
-        #pdf-canvas {
-            display: block;
-            max-width: 100%;
-            height: auto;
-        }
-
-        /* Правая панель для новостей и классов */
-        .right-panel {
-            flex: 1;
-            background: #ffffff;
-            display: flex;
-            flex-direction: column;
-            padding-left: 20px;
-            background: #e6ffe6; 
-            overflow-y: auto;
-        }
-
-        /* Секция новостей */
-        .news-section {
-            flex: 1;
-            margin-bottom: 20px;
-            overflow-y: auto;
-            border: 1px solid #d4d4d4; /* Бордер для новостей */
-            border-radius: 25px; /* Скруглённые углы */
-            padding: 20px;
-            background: #f9f9f9; /* Светлый фон */
-        }
-
-        .news-section h2 {
-            font-size: 24px;
-            margin-bottom: 10px;
-            color: #333;
-        }
-
-        .news-item {
-            margin-bottom: 15px;
-            padding: 10px;
-            
-            background: #f9f9f9; /* Светлый фон */
-            border-radius: 15px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Секция классов */
-        .class-section {
-            flex: 1;
-            overflow-y: auto;
-            border: 1px solid #d4d4d4; /* Бордер для расписания */
-            border-radius: 25px; /* Скруглённые углы */
-            padding: 20px;
-            background: #f9f9f9; /* Светлый фон */
-        }
-
-        .class-section h2 {
-            font-size: 24px;
-            margin-bottom: 25px;
-            color: #333;
-            text-align: center;
-        }
-
-        ul {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 15px; /* Меньшее расстояние между элементами */
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        li {
-            border-radius: 15px; /* Скруглённые углы */
-            width: 120px; /* Уменьшенная ширина */
-            height: 120px; /* Уменьшенная высота */
-            background: rgb(123, 209, 53);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            cursor: pointer;
-        }
-
-        li:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        li a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            height: 100%;
-            text-decoration: none;
-            color: white;
-            font-weight: bold;
-            font-size: 16px; /* Меньший шрифт */
-            overflow: hidden;
-        }
-
-        body.modal-open {
-            overflow: hidden;
-            padding-right: 17px; /* Ширина полосы прокрутки */
-        }
-
-        .modal {
-            display: none; /* Скрыто по умолчанию */
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.4); /* Полупрозрачный фон */
-        }
-
-        .modal-content {
-            background-color: #fefefe;
-            margin: 5% auto;
-            padding: 20px;
-            
-            width: 80%;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        }
-
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .close:hover,
-        .close:focus {
-            color: black;
-            text-decoration: none;
-        }
-
-        .news-section {
-            padding: 20px;
-            background: #f9f9f9;
-            border-radius: 25px;
-            border: 1px solid #d4d4d4;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            overflow-y: auto;
-            max-height: 400px; /* Ограничение высоты раздела новостей */
-            cursor: pointer;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-
-        .news-section:hover {
-            transform: scale(1.02);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        .news-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .news-item {
-            padding: 10px;
-            background: #ffffff;
-            border-radius: 15px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            transition: box-shadow 0.2s ease;
-        }
-
-        .news-item:hover {
-            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
-        }
-
-        .news-content img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 10px;
-        }
-    </style>
+.panel-modal .close:hover,
+.panel-modal .close:focus {
+  color: black;
+  text-decoration: none;
+}
+    
+    .schedule-font {
+      font-family: 'Arial', sans-serif;
+      font-size: 10px;
+      line-height: 1.5;
+    } 
+  </style>
 </head>
 <body>
-    <div class="header">
-        <div class="welcome">Добро пожаловать в школу {{ request.user }}</div>
-        <a href="{% url 'custom_admin_dashboard' %}" class="admin-panel">
-            <img src="{% static 'img/home-button.png' %}" alt="Админ-панель">
-        </a>
+  <div class="header">
+    <div class="welcome">Добро пожаловать в школу {{ request.user }}</div>
+    <a href="{% url 'custom_admin_dashboard' %}" class="admin-panel">
+      <img src="{% static 'img/home-button.png' %}" alt="Админ-панель">
+    </a>
+  </div>
+
+  <!-- Основной контент -->
+  <div class="main">
+    <!-- Левая панель с презентациями -->
+    <div class="left-panel">
+      <h2>Ваши презентации</h2>
+      {% if slides %}
+        <div id="pdf-viewer-container">
+          <canvas id="pdf-canvas"></canvas>
+        </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+        <script>
+          pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
+          const slides = [
+            {% for slide in slides %}
+              "{{ slide.pdf_file.url }}",
+            {% endfor %}
+          ];
+          let currentSlideIndex = 0;
+          let currentPageIndex = 1;
+          let pdfDoc = null;
+
+          function loadPDF(url) {
+            const canvas = document.getElementById('pdf-canvas');
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            currentPageIndex = 1;
+            pdfDoc = null;
+            pdfjsLib.getDocument(url).promise.then(function(pdf) {
+              pdfDoc = pdf;
+              renderPage();
+            });
+          }
+
+          function renderPage() {
+            pdfDoc.getPage(currentPageIndex).then(function(page) {
+              const canvas = document.getElementById('pdf-canvas');
+              const ctx = canvas.getContext('2d');
+              const viewport = page.getViewport({ scale: 1.2 });
+              ctx.clearRect(0, 0, canvas.width, canvas.height);
+              canvas.width = viewport.width;
+              canvas.height = viewport.height;
+              const renderContext = {
+                canvasContext: ctx,
+                viewport: viewport,
+              };
+              page.render(renderContext).promise.then(() => {
+                currentPageIndex++;
+                if (currentPageIndex > pdfDoc.numPages) {
+                  currentPageIndex = 1;
+                  currentSlideIndex = (currentSlideIndex + 1) % slides.length;
+                  loadPDF(slides[currentSlideIndex]);
+                } else {
+                  setTimeout(renderPage, 10000);
+                }
+              });
+            });
+          }
+          loadPDF(slides[currentSlideIndex]);
+        </script>
+      {% else %}
+        <p>У вас пока нет загруженных презентаций.</p>
+      {% endif %}
     </div>
 
-    <!-- Основной контент -->
-    <div class="main">
-        <div class="left-panel">
-            <h2>Ваши презентации</h2>
-            {% if slides %}
-                <div id="pdf-viewer-container">
-                    <canvas id="pdf-canvas"></canvas>
+    <!-- Правая панель с новостями и расписанием -->
+    <div class="right-panel">
+      <!-- Секция новостей -->
+      <div class="news-section">
+        <h2>Новости</h2>
+        {% if news %}
+          <div class="news-grid">
+            {% for item in news %}
+              <div class="news-item" onclick="openNewsModal({{ item.id }});">
+                <div class="news-content">
+                  <strong>{{ item.title }}</strong>
+                  <p>{{ item.content|truncatewords:50 }}</p>
+                  {% if item.images %}
+                    <img src="{{ item.images.url }}" alt="{{ item.title }}" style="margin: 0 auto; display: block; max-width: 100%; height: auto;">
+                  {% endif %}
                 </div>
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
-                <script>
-                  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
-                  const slides = [
-                        {% for slide in slides %}
-                        "{{ slide.pdf_file.url }}",
-                        {% endfor %}
-                    ];
+              </div>
+            {% endfor %}
+          </div>
+        {% else %}
+          <p>Новостей пока нет.</p>
+        {% endif %}
+      </div>
+      
+      <!-- Секция классов (расписание школы) -->
+      <div class="class-section" id="schedule-container">
+        <h2>Расписание школы</h2>
+        <ul>
+          {% for grade in grades %}
+            <li>
+              <a href="#" onclick="openSubgradeModal({{ grade.id }}, event)">
+                {{ grade.number }} Класс
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
 
-                    let currentSlideIndex = 0;
-                    let currentPageIndex = 1;
-                    let pdfDoc = null;
-
-                    function loadPDF(url) {
-                        const canvas = document.getElementById('pdf-canvas');
-                        const ctx = canvas.getContext('2d');
-                        
-                        // Полная очистка canvas
-                        ctx.clearRect(0, 0, canvas.width, canvas.height);
-                        
-                        // Сброс всех переменных перед загрузкой нового PDF
-                        currentPageIndex = 1;
-                        pdfDoc = null;
-
-                        pdfjsLib.getDocument(url).promise.then(function(pdf) {
-                            pdfDoc = pdf;
-                            renderPage();
-                        });
-                    }
-
-                    function renderPage() {
-                        pdfDoc.getPage(currentPageIndex).then(function(page) {
-                            const canvas = document.getElementById('pdf-canvas');
-                            const ctx = canvas.getContext('2d');
-                            const viewport = page.getViewport({ scale: 1.2 });
-
-                            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-                            canvas.width = viewport.width;
-                            canvas.height = viewport.height;
-
-                            const renderContext = {
-                                canvasContext: ctx,
-                                viewport: viewport,
-                            };
-
-                            
-                            page.render(renderContext).promise.then(() => {
-                                currentPageIndex++;
-                                if (currentPageIndex > pdfDoc.numPages) {
-                                    currentPageIndex = 1;
-                                    currentSlideIndex = (currentSlideIndex + 1) % slides.length;
-                                    loadPDF(slides[currentSlideIndex]);
-                                } else {
-                                    setTimeout(renderPage, 10000);
-                                }
-                            });
-                        });
-                    }
-
-                    loadPDF(slides[currentSlideIndex]);
-
-                </script>
-            {% else %}
-                <p>У вас пока нет загруженных презентаций.</p>
-            {% endif %}
-        </div>
-        
-        <!-- Правая панель -->
-        <div class="right-panel">
-            <!-- Секция новостей -->
-            <div class="news-section" style="overflow-y: auto; max-height: 400px;">
-                <h2>Новости</h2>
-                {% if news %}
-                    <div class="news-grid">
-                        {% for item in news %}
-                            <div class="news-item" onclick="openNewsModal({{ item.id }});">
-                                <div class="news-content">
-                                    <strong>{{ item.title }}</strong>
-                                    <p>{{ item.content|truncatewords:50 }}</p>
-                                    {% if item.images %}
-                                        <img src="{{ item.images.url }}" alt="{{ item.title }}" style="margin: 0 auto; display: block; max-width: 100%; height: auto;">
-                                    {% endif %}
-                                </div>
-                            </div>
-                        {% endfor %}
-                    </div>
-                {% else %}
-                    <p>Новостей пока нет.</p>
-                {% endif %}
-            </div>
-            
-            <!-- Секция классов -->
-            <div class="class-section">
-                <h2 class="h2-class">Расписание школы</h2>
-                <ul>
-                    {% for grade in grades %}
-                    <li> <a href="#" onclick="openSubgradeModal({{ grade.id }}, event)">
-                        {{ grade.number }} Класс
-                    </a></li>
-                    {% endfor %}
-                </ul>
-            </div>
-        </div>
-    </div>
-
-<!-- Subgrade Modal -->
-<div id="modal" class="modal" onclick="outsideClickClose(event, 'modal')">
+      <!-- Модальное окно для новостей -->
+<div id="news-modal" class="panel-modal" onclick="outsideClickClosePanel(event, 'news-modal')">
     <div class="modal-content" onclick="event.stopPropagation();">
-        <span class="close" onclick="closeModal()">&times;</span>
-        <div id="modal-body">Загрузка...</div>
+      <span class="close" onclick="closePanelModal('news-modal')">&times;</span>
+      <div id="news-modal-body">Загрузка...</div>
     </div>
-</div>
-
-<!-- Lesson Modal -->
-<div id="lesson-modal" class="modal" onclick="outsideClickClose(event, 'lesson-modal')">
+  </div>
+  
+  <!-- Модальное окно для списка подклассов -->
+  <div id="subgrade-modal" class="panel-modal" onclick="outsideClickClosePanel(event, 'subgrade-modal')">
     <div class="modal-content" onclick="event.stopPropagation();">
-        <span class="close" onclick="closeModal()">&times;</span>
-        <div id="lesson-modal-body">Загрузка...</div>
+      <span class="close" onclick="closePanelModal('subgrade-modal')">&times;</span>
+      <div id="subgrade-modal-body">Загрузка...</div>
     </div>
-</div>
-
-<div id="news-modal" class="modal" onclick="outsideClickClose(event, 'news-modal')">
+  </div>
+  
+  <!-- Модальное окно для расписания уроков (после выбора подкласса) -->
+  <div id="schedule-modal" class="panel-modal" onclick="outsideClickClosePanel(event, 'schedule-modal')">
     <div class="modal-content" onclick="event.stopPropagation();">
-        <span class="close" onclick="closeModal()">&times;</span>
-        <div id="news-modal-body">Загрузка...</div>
+      <span class="close" onclick="closePanelModal('schedule-modal')">&times;</span>
+      <div id="schedule-modal-body">Загрузка...</div>
     </div>
-</div>
+  </div>
 
-<script>
-     function openNewsModal(newsId) {
-        const modal = document.getElementById('news-modal');
-        const modalBody = document.getElementById('news-modal-body');
-
-        modal.style.display = "block";
-        document.body.classList.add("modal-open");
-
-        fetch(`/news_detail/${newsId}/`) 
-            .then(response => response.json())
-            .then(data => {
-                modalBody.innerHTML = data.html; 
-            })
-            .catch(error => {
-                modalBody.innerHTML = "Ошибка загрузки данных.";
-            });
+    </div>
+  </div>
+  <script>
+    // Открытие модального окна с новостью
+    function openNewsModal(newsId) {
+      const modal = document.getElementById('news-modal');
+      const modalBody = document.getElementById('news-modal-body');
+      modal.style.display = "block";
+      fetch(`/news_detail/${newsId}/`)
+        .then(response => response.json())
+        .then(data => {
+          modalBody.innerHTML = data.html;
+        })
+        .catch(error => {
+          modalBody.innerHTML = "Ошибка загрузки данных.";
+        });
     }
-
-    function closeModal() {
-        document.getElementById('modal').style.display = "none";
-        document.getElementById('lesson-modal').style.display = "none";
-        document.getElementById('news-modal').style.display = "none"; 
-        document.body.classList.remove("modal-open");
-    }
-
-    function outsideClickClose(event, modalId) {
-        const modal = document.getElementById(modalId);
-        if (event.target === modal) {
-            modal.style.display = "none";
-            document.body.classList.remove("modal-open");
-        }
-    }
-
+  
+    // Открытие модального окна со списком подклассов
     function openSubgradeModal(gradeId, event) {
-        event.preventDefault();
-        const modal = document.getElementById('modal');
-        const modalBody = document.getElementById('modal-body');
-
-        modal.style.display = "block";
-        document.body.classList.add("modal-open");
-
-        fetch(`/subgrade_list/${gradeId}/`)
-            .then(response => response.text())
-            .then(html => {
-                modalBody.innerHTML = html;
-            })
-            .catch(error => {
-                modalBody.innerHTML = "Ошибка загрузки данных.";
-            });
+      event.preventDefault();
+      const modal = document.getElementById('subgrade-modal');
+      const modalBody = document.getElementById('subgrade-modal-body');
+      modal.style.display = "block";
+      fetch(`/subgrade_list/${gradeId}/`)
+        .then(response => response.text())
+        .then(html => {
+          modalBody.innerHTML = html;
+        })
+        .catch(error => {
+          modalBody.innerHTML = "Ошибка загрузки данных.";
+        });
     }
-
+  
+    // Открытие модального окна с расписанием уроков для выбранного подкласса
     function openLessonModal(subgradeId, event) {
-        event.preventDefault();
-        const lessonModal = document.getElementById('lesson-modal');
-        const lessonModalBody = document.getElementById('lesson-modal-body');
-
-        lessonModal.style.display = "block";
-        document.body.classList.add("modal-open");
-
-        fetch(`/lesson_schedule/${subgradeId}/`)
-            .then(response => response.text())
-            .then(html => {
-                lessonModalBody.innerHTML = html;
-            })
-            .catch(error => {
-                lessonModalBody.innerHTML = "Ошибка загрузки данных.";
-            });
+      event.preventDefault();
+      const modal = document.getElementById('schedule-modal');
+      const modalBody = document.getElementById('schedule-modal-body');
+      modal.style.display = "block";
+      fetch(`/lesson_schedule/${subgradeId}/`)
+        .then(response => response.text())
+        .then(html => {
+          modalBody.innerHTML = html;
+        })
+        .catch(error => {
+          modalBody.innerHTML = "Ошибка загрузки данных.";
+        });
     }
-</script>
-
+  
+    // Универсальная функция закрытия модального окна при клике вне его содержимого
+    function outsideClickClosePanel(event, modalId) {
+      if (event.target === document.getElementById(modalId)) {
+        closePanelModal(modalId);
+      }
+    }
+  
+    // Функция закрытия модальных окон
+    function closePanelModal(modalId) {
+      document.getElementById(modalId).style.display = "none";
+    }
+  </script>
 </body>
 </html>
