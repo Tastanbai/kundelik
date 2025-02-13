@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-4)f!9brkvj)0gfh39t&$1&%m5w@ix+t84sg4@z)9kj$-f-ha^g
 DEBUG = False
 
 
-ALLOWED_HOSTS = ['91.243.71.202']
+ALLOWED_HOSTS = ['kundelik-nomad.kz']
 
 # Application definition
 
@@ -130,13 +130,14 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
-
-STATIC_URL = 'static/'
-
+STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
-    BASE_DIR / "static",  # Указывает на папку static в корне проекта
+    BASE_DIR / 'static',
 ]
+
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
@@ -151,7 +152,7 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Максимальный размер данных для загрузки (в байтах)
-DATA_UPLOAD_MAX_MEMORY_SIZE = 10 * 1024 * 1024  # 10 МБ
+DATA_UPLOAD_MAX_MEMORY_SIZE = 100 * 1024 * 1024  # 10 МБ
 
 
 LOGGING = {
@@ -173,3 +174,4 @@ LOGGING = {
         },
     },
 }
+

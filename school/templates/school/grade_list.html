@@ -3,7 +3,8 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Дашборд</title>
+    <title>Школьный Дневник</title>
+    <link rel="icon" type="image/x-icon" href="{% static 'img/favicon.ico' %}">
     <style>
         body {
             margin: 0;
@@ -283,57 +284,65 @@
                 </div>
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
                 <script>
-                     const slides = [
-    {% for slide in slides %}
-    "{{ slide.pdf_file.url }}",
-    {% endfor %}
-];
+                  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
+                  const slides = [
+                        {% for slide in slides %}
+                        "{{ slide.pdf_file.url }}",
+                        {% endfor %}
+                    ];
 
-let currentSlideIndex = 0;
-let currentPageIndex = 1;
-let pdfDoc = null;
+                    let currentSlideIndex = 0;
+                    let currentPageIndex = 1;
+                    let pdfDoc = null;
 
-// Функция для загрузки PDF
-function loadPDF(url) {
-    const pdfjsLib = window['pdfjs-dist/build/pdf'];
-    pdfjsLib.getDocument(url).promise.then(function(pdf) {
-        pdfDoc = pdf; // Сохраняем документ в переменную
-        currentPageIndex = 1; // Начинаем с первой страницы
-        renderPage(); // Рендерим первую страницу
-    });
-}
+                    function loadPDF(url) {
+                        const canvas = document.getElementById('pdf-canvas');
+                        const ctx = canvas.getContext('2d');
+                        
+                        // Полная очистка canvas
+                        ctx.clearRect(0, 0, canvas.width, canvas.height);
+                        
+                        // Сброс всех переменных перед загрузкой нового PDF
+                        currentPageIndex = 1;
+                        pdfDoc = null;
 
-// Функция для рендеринга текущей страницы
-function renderPage() {
-    pdfDoc.getPage(currentPageIndex).then(function(page) {
-        const canvas = document.getElementById('pdf-canvas');
-        const ctx = canvas.getContext('2d');
-        const viewport = page.getViewport({ scale: 1.2 });
+                        pdfjsLib.getDocument(url).promise.then(function(pdf) {
+                            pdfDoc = pdf;
+                            renderPage();
+                        });
+                    }
 
-        canvas.width = viewport.width;
-        canvas.height = viewport.height;
+                    function renderPage() {
+                        pdfDoc.getPage(currentPageIndex).then(function(page) {
+                            const canvas = document.getElementById('pdf-canvas');
+                            const ctx = canvas.getContext('2d');
+                            const viewport = page.getViewport({ scale: 1.2 });
 
-        const renderContext = {
-            canvasContext: ctx,
-            viewport: viewport,
-        };
+                            ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        page.render(renderContext).promise.then(() => {
-            // Увеличиваем индекс страницы или переходим к следующему PDF
-            currentPageIndex++;
-            if (currentPageIndex > pdfDoc.numPages) {
-                currentPageIndex = 1; // Сбрасываем на первую страницу
-                currentSlideIndex = (currentSlideIndex + 1) % slides.length; // Переходим к следующему PDF
-                loadPDF(slides[currentSlideIndex]);
-            } else {
-                setTimeout(renderPage, 10000); // Переход к следующей странице через 10 секунд
-            }
-        });
-    });
-} 
+                            canvas.width = viewport.width;
+                            canvas.height = viewport.height;
 
-// Загрузка первого PDF при загрузке страницы
-loadPDF(slides[currentSlideIndex]);
+                            const renderContext = {
+                                canvasContext: ctx,
+                                viewport: viewport,
+                            };
+
+                            
+                            page.render(renderContext).promise.then(() => {
+                                currentPageIndex++;
+                                if (currentPageIndex > pdfDoc.numPages) {
+                                    currentPageIndex = 1;
+                                    currentSlideIndex = (currentSlideIndex + 1) % slides.length;
+                                    loadPDF(slides[currentSlideIndex]);
+                                } else {
+                                    setTimeout(renderPage, 10000);
+                                }
+                            });
+                        });
+                    }
+
+                    loadPDF(slides[currentSlideIndex]);
 
                 </script>
             {% else %}

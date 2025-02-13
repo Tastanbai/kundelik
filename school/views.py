@@ -350,12 +350,13 @@ def news_detail(request, news_id):
 def grade_list(request):
     user_school = request.user.school_user.school
     grades = Grade.objects.filter(school=user_school).order_by('number')
-    slides = Slide.objects.filter(school=user_school).order_by('title')
+    slides = Slide.objects.filter(school=user_school)
+    last_slide = slides.last() 
     news = News.objects.filter(school=user_school).order_by('-created_at')
     
     return render(request, 'school/grade_list.html', {
         'grades': grades,
-        'slides': slides,
+        'slides': [last_slide],
         'news': news,
     })
 
