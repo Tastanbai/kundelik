@@ -253,6 +253,11 @@
       font-size: 10px;
       line-height: 1.5;
     } 
+    .current-date {
+      font-size: 22px;
+      color: #333;
+      margin-right: 20px;
+    }
 
     #news-modal .modal-content img {
   width: 300px;
@@ -265,6 +270,9 @@
 <body>
   <div class="header">
     <div class="welcome">Добро пожаловать в школу {{ request.user }}</div>
+    <div class="current-date">
+      {% now "d.m.Y" %}
+    </div>
     <a href="{% url 'custom_admin_dashboard' %}" class="admin-panel">
       <img src="{% static 'img/home-button.png' %}" alt="Админ-панель">
     </a>
