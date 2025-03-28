@@ -29,6 +29,11 @@
       font-size: 20px;
     }
     
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 20px; /* расстояние между датой и кнопкой админ-панели */
+    }
     .header .welcome {
       color: #333;
       font-weight: bold;
@@ -270,12 +275,14 @@
 <body>
   <div class="header">
     <div class="welcome">Добро пожаловать в школу {{ request.user }}</div>
-    <div class="current-date">
-      {% now "d.m.Y" %}
+    <div class="header-right">
+      <div class="current-date">
+        <span id="currentDateTime"></span>
+      </div>
+      <a href="{% url 'custom_admin_dashboard' %}" class="admin-panel">
+        <img src="{% static 'img/home-button.png' %}" alt="Админ-панель">
+      </a>
     </div>
-    <a href="{% url 'custom_admin_dashboard' %}" class="admin-panel">
-      <img src="{% static 'img/home-button.png' %}" alt="Админ-панель">
-    </a>
   </div>
 
   <!-- Основной контент -->
@@ -465,6 +472,26 @@
     function closePanelModal(modalId) {
       document.getElementById(modalId).style.display = "none";
     }
+
+
+    function updateDateTime() {
+    const now = new Date();
+    // Настройка формата даты и времени (в данном случае используется формат для ru-RU)
+    const options = {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit'
+    };
+    const dateTimeString = now.toLocaleString('ru-RU', options);
+    document.getElementById('currentDateTime').textContent = dateTimeString;
+  }
+  // Первоначальный вызов функции
+  updateDateTime();
+  // Обновление каждые 1000 миллисекунд (1 секунда)
+  setInterval(updateDateTime, 1000);
   </script>
 </body>
 </html>
